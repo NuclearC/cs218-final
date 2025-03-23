@@ -54,5 +54,10 @@ public class FirstPersonCamera : MonoBehaviour
         lookDirection = lookQuat * Vector3.forward;
 
         transform.rotation = lookQuat;
+        if (playerEntity)
+        {
+            playerEntity.rotation = Quaternion.Euler(0, lookYaw, 0);
+            transform.position = playerEntity.position;
+        }
     }
 }

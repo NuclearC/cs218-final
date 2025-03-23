@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -24,5 +23,18 @@ public class GameManager : MonoBehaviour
     public void CursorUnlock()
     {
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    // perform all the necessary tasks when the game starts
+    // (e.g. lock the cursor, reset the score and stats, etc)
+    public void GameStart()
+    {
+        // TODO: implement
+    }
+
+    // perform the game end tasks (e.g. save)
+    public void GameEnd()
+    {
+        // TODO: implement
     }
 }
