@@ -33,7 +33,7 @@ Shader "Unlit/TestShader23"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                float3 normal : TEXCOORD1;
+                float3 normal : NORMAL;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
             };
@@ -58,7 +58,7 @@ Shader "Unlit/TestShader23"
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv) * _Test;
                 float mag = length(dot(viewDir, i.normal));
-                col.a = 1.0 - pow(mag, 0.2);
+                col *= 1.0 - pow(mag, 0.5);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

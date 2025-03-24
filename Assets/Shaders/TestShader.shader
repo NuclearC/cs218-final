@@ -4,6 +4,7 @@ Shader "Hidden/TestShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _NoiseTex ("Texture", 2D) = "white" {}
+        _NoiseMultiplier("NoiseMultiplier", float) = 0.5
     }
     SubShader
     {
@@ -40,6 +41,7 @@ Shader "Hidden/TestShader"
 
             sampler2D _MainTex;
             sampler2D _NoiseTex;
+            float _NoiseMultiplier;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -59,7 +61,8 @@ Shader "Hidden/TestShader"
 
                 float green = clamp(intensity / 0.59, 0.0, 1.0);
                 
-                col = float4(col.rgb * float3(0, green, 0), col.a) * tex2D(_NoiseTex, i.uv + uv);
+                fixed4 noise = _NoiseMultiplier * tex2D(_NoiseTex, i.uv + uv);
+                col = float4(col.rgb * float3(0, green, 0), col.a) * noise;
                 return col;
             }
             ENDCG
