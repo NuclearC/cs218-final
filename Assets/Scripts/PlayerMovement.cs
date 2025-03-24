@@ -26,6 +26,14 @@ public class PlayerMovement : MonoBehaviour
             rigidBody.MovePosition(rigidBody.position + moveVector * Time.deltaTime * moveSpeed);
         }
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            var a = FindObjectOfType<NightVisionManager>();
+            a.Toggle();
+        }
+    }
 
     void FixedUpdate()
     {
