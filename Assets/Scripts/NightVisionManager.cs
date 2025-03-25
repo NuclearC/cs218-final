@@ -7,22 +7,26 @@ using UnityEngine.UI;
 public class NightVisionManager : MonoBehaviour
 {
 
-    [SerializeField] GameObject nightVisionTexture;
-
+    [SerializeField] GameObject nightVisionGameObject;
+    private Animator nightVisionAnimator;
+    void Start()
+    {
+        nightVisionAnimator = nightVisionGameObject.GetComponent<Animator>();
+    }
 
     public void Show()
     {
-        nightVisionTexture.SetActive(true);
+        nightVisionAnimator.SetBool("enabled", true);
     }
 
     public void Hide()
     {
-        nightVisionTexture.SetActive(false);
+        nightVisionAnimator.SetBool("enabled", false);
     }
 
     public void Toggle()
     {
-        if (nightVisionTexture.activeSelf)
+        if (nightVisionAnimator.GetBool("enabled"))
             Hide();
         else Show();
     }

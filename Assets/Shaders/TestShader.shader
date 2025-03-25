@@ -10,7 +10,7 @@ Shader "Hidden/TestShader"
     SubShader
     {
         // No culling or depth
-        Cull Off ZWrite Off ZTest Always
+        // Cull Off ZWrite Off ZTest Always
 
         Pass
         {

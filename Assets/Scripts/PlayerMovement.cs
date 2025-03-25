@@ -28,11 +28,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            var a = FindObjectOfType<NightVisionManager>();
-            a.Toggle();
-        }
     }
 
     void FixedUpdate()
