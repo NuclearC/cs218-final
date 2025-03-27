@@ -35,4 +35,9 @@ public class MeleeBehavior : MonoBehaviour, WeaponBehavior<Melee>
     {
         return canAttack;
     }
+
+    public string GetInventoryItemName()
+    {
+        return "Melee";
+    }
 }

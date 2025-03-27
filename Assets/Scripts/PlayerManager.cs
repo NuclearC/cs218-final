@@ -10,23 +10,28 @@ public class PlayerManager : MonoBehaviour
     private PlayerMovement movement;
     private PlayerInventory inventory;
 
-    private MeleeBehavior meleeBehavior;
-    private NightVisionManager nightVisionManager;
-
     // the item we are holding currently
     private InventoryItem currentItem;
 
     void Start()
     {
-        meleeBehavior = FindObjectOfType<MeleeBehavior>();
-        nightVisionManager = FindObjectOfType<NightVisionManager>();
         movement = GetComponent<PlayerMovement>();
         inventory = GetComponent<PlayerInventory>();
 
-        inventory.AddItem(new Melee());
-        inventory.AddItem(new NightVision());
+        EquipItem(new Melee());
+        EquipItem(new NightVision());
+    }
 
-        currentItem = (Weapon)inventory.GetItem<Melee>();
+    public void EquipItem(InventoryItem item)
+    {
+        inventory.AddItem(item);
+    }
+
+    public void SetCurrentItem(InventoryItem item)
+    {
+        inventory.SetActiveItem(item);
+
+        currentItem = item;
     }
 
     // Update is called once per frame
@@ -41,15 +46,24 @@ public class PlayerManager : MonoBehaviour
         {
             if (currentItem is Weapon)
             {
-                meleeBehavior.Attack((Melee)currentItem);
+                //meleeBehavior.Attack((Melee)currentItem);
             }
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (inventory.GetItem<NightVision>() != null)
-            {
-                nightVisionManager.Toggle();
-            }
+            //if (nightVisionManager != null && inventory.GetItem<NightVision>() != null)
+            //{
+            //    nightVisionManager.Toggle();
+            //}
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetCurrentItem(inventory.EnumerateItems().ElementAt(0));
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetCurrentItem(inventory.EnumerateItems().ElementAt(1));
         }
     }
 }

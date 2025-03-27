@@ -2,6 +2,13 @@
 
 using UnityEngine;
 
+public enum WeaponType
+{
+    Primary,
+    Secondary,
+    Melee,
+    Utility,
+}
 public abstract class Weapon : InventoryItem
 {
     public override string GetName()
@@ -13,6 +20,8 @@ public abstract class Weapon : InventoryItem
 
     // get the range of this weapon in Unity units
     public abstract float GetRange();
+
+    public abstract WeaponType GetWeaponType();
 
     public virtual void Attack()
     {

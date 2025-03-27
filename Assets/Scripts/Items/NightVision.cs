@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class NightVision : InventoryItem
 {
     public override int GetAmount()
@@ -8,5 +10,9 @@ public class NightVision : InventoryItem
     public override string GetName()
     {
         return "Night Vision";
+    }
+    public override string GetObjectName()
+    {
+        return "NVScreen";
     }
 }

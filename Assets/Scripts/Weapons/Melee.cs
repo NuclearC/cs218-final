@@ -24,4 +24,12 @@ public class Melee : Weapon
     {
         return 50.0f;
     }
+    public override WeaponType GetWeaponType()
+    {
+        return WeaponType.Melee;
+    }
+    public override string GetObjectName()
+    {
+        return "Melee";
+    }
 }
