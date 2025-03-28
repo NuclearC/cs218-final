@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInventory : MonoBehaviour
 {
     private List<InventoryItem> items = new();
-    [SerializeField] GameObject[] inventoryItemGameObjects;
 
-    void Start()
-    {
+    public InventoryItem CurrentItem { get; private set; }
 
-    }
+    [SerializeField] GameObject[] inventoryHudObjects;
 
     public void AddItem(InventoryItem item)
     {
@@ -20,16 +21,15 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetActiveItem(InventoryItem item)
     {
-        foreach (var gameObject in inventoryItemGameObjects)
+        CurrentItem = item;
+        if (item.GetInventoryHudIndex() == -1)
+            return;
+
+        for (int i = 0; i < inventoryHudObjects.Count(); i++)
         {
-            if (gameObject.name == item.GetObjectName())
-            {
-                gameObject.SetActive(true);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            if (i == CurrentItem.GetInventoryHudIndex())
+                inventoryHudObjects[i].SetActive(true);
+            else inventoryHudObjects[i].SetActive(false);
         }
     }
 

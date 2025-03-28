@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 
 public class MeleeBehavior : MonoBehaviour, WeaponBehavior<Melee>
 {
     private Animator animator;
-
     private bool canAttack = false;
+
     public void Attack(Melee weapon)
     {
         if (CanAttack())
@@ -31,6 +32,10 @@ public class MeleeBehavior : MonoBehaviour, WeaponBehavior<Melee>
         animator = GetComponent<Animator>();
     }
 
+    void OnDisable()
+    {
+        animator.StopPlayback();
+    }
     public bool CanAttack()
     {
         return canAttack;

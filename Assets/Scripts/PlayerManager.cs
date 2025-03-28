@@ -13,6 +13,16 @@ public class PlayerManager : MonoBehaviour
     // the item we are holding currently
     private InventoryItem currentItem;
 
+    public PlayerMovement Movement { get { return movement; } }
+    public PlayerInventory Inventory { get { return inventory; } }
+
+
+    private static PlayerManager localPlayerManager = null;
+    public static PlayerManager GetLocalPlayerManager()
+    {
+        return localPlayerManager == null ? (localPlayerManager = GameObject.FindWithTag("Player").GetComponent<PlayerManager>()) : localPlayerManager;
+    }
+
     void Start()
     {
         movement = GetComponent<PlayerMovement>();

@@ -9,6 +9,7 @@ public class NightVisionManager : MonoBehaviour
 
     [SerializeField] GameObject nightVisionGameObject;
     private Animator nightVisionAnimator;
+
     void Start()
     {
         nightVisionAnimator = nightVisionGameObject.GetComponent<Animator>();

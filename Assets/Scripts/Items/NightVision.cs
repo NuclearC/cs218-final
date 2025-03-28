@@ -7,6 +7,11 @@ public class NightVision : InventoryItem
         return 1;
     }
 
+    public override int GetInventoryHudIndex()
+    {
+        return 1;
+    }
+
     public override string GetName()
     {
         return "Night Vision";

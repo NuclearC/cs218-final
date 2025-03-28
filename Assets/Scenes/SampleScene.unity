@@ -1043,7 +1043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 58f9ca4b20bec5077a9c05d5f00d7813, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 58f9ca4b20bec5077a9c05d5f00d7813, type: 3}
       propertyPath: m_TagString
@@ -1924,9 +1924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02569771a21169d81a0df883e2de2397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryItemGameObjects:
+  inventoryHudObjects:
   - {fileID: 1766170893}
-  - {fileID: 746653337}
+  - {fileID: 1597658520}
 --- !u!114 &1319100004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2156,7 +2156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3fd26f3b378ade7ce9091d91016a9f02, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: 3fd26f3b378ade7ce9091d91016a9f02, type: 3}
       propertyPath: m_LocalPosition.x

@@ -6,6 +6,12 @@ public class Melee : Weapon
 
     private float hitRate = 0.5f;
 
+
+    public override int GetInventoryHudIndex()
+    {
+        return 0;
+    }
+
     public override string GetName()
     {
         return "Melee";
