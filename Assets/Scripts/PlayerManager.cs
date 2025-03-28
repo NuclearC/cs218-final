@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour
     // the item we are holding currently
     private InventoryItem currentItem;
 
+    private FirstPersonCamera firstPersonCamera;
+
     public PlayerMovement Movement { get { return movement; } }
     public PlayerInventory Inventory { get { return inventory; } }
 
@@ -28,8 +30,18 @@ public class PlayerManager : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         inventory = GetComponent<PlayerInventory>();
 
+        firstPersonCamera = Camera.main.GetComponent<FirstPersonCamera>();
+
         EquipItem(new Melee());
         EquipItem(new NightVision());
+
+        var wtf = new Rifle
+        {
+            CurrentAmmo = 10
+        };
+        EquipItem(wtf);
+
+        SetCurrentItem(inventory.GetItem<Melee>());
     }
 
     public void EquipItem(InventoryItem item)
@@ -47,7 +59,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UIManager.Instance.UpdateInfoText(0, 0,
+        UIManager.Instance.UpdateInfoText(0, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
             currentItem is Weapon ? ((Weapon)currentItem).GetMagazineCapacity() : 0,
             currentItem != null ? currentItem.GetName() : "none",
             inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
@@ -56,24 +68,30 @@ public class PlayerManager : MonoBehaviour
         {
             if (currentItem is Weapon)
             {
-                //meleeBehavior.Attack((Melee)currentItem);
+                var obj = inventory.GetInventoryHudObject(currentItem.GetInventoryHudIndex());
+                if (obj)
+                {
+                    var weaponBehavior = obj.GetComponent<WeaponBehavior>();
+                    if (weaponBehavior && weaponBehavior.CanAttack())
+                    {
+                        weaponBehavior.Attack(currentItem as Weapon,
+                            Quaternion.Euler(firstPersonCamera.GetViewAngles()) * Vector3.forward,
+                            transform.position);
+                    }
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //if (nightVisionManager != null && inventory.GetItem<NightVision>() != null)
-            //{
-            //    nightVisionManager.Toggle();
-            //}
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+
+        for (int i = (int)KeyCode.Alpha1; i <= (int)KeyCode.Alpha9; i++)
         {
-            SetCurrentItem(inventory.EnumerateItems().ElementAt(0));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetCurrentItem(inventory.EnumerateItems().ElementAt(1));
+            if (Input.GetKeyDown((KeyCode)i))
+            {
+                int idx = i - (int)KeyCode.Alpha1;
+                var item = inventory.EnumerateItems().Where(it => it.GetInventoryHudIndex() == idx);
+                if (item.Count() > 0)
+                    SetCurrentItem(item.First());
+            }
         }
     }
 }

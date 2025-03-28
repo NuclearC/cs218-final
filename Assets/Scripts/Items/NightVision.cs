@@ -9,15 +9,11 @@ public class NightVision : InventoryItem
 
     public override int GetInventoryHudIndex()
     {
-        return 1;
+        return PlayerInventory.INVENTORY_NIGHTVISION_INDEX;
     }
 
     public override string GetName()
     {
         return "Night Vision";
-    }
-    public override string GetObjectName()
-    {
-        return "NVScreen";
     }
 }

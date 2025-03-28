@@ -8,6 +8,10 @@ using UnityEngine.Events;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public static int INVENTORY_RIFLE_INDEX = 0;
+    public static int INVENTORY_MELEE_INDEX = 2;
+    public static int INVENTORY_NIGHTVISION_INDEX = 3;
+
     private List<InventoryItem> items = new();
 
     public InventoryItem CurrentItem { get; private set; }
@@ -31,6 +35,13 @@ public class PlayerInventory : MonoBehaviour
                 inventoryHudObjects[i].SetActive(true);
             else inventoryHudObjects[i].SetActive(false);
         }
+    }
+
+    public GameObject GetInventoryHudObject(int index)
+    {
+        if (index >= 0 && index < inventoryHudObjects.Count())
+            return inventoryHudObjects[index];
+        return null;
     }
 
     public InventoryItem GetItem<T>()

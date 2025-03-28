@@ -27,6 +27,11 @@ public class FirstPersonCamera : MonoBehaviour
         lookPitch = pitch;
     }
 
+    public Vector3 GetViewAngles()
+    {
+        return new Vector3(lookPitch, lookYaw);
+    }
+
     // Brings the angles into a standard range
     private void NormalizeViewAngles()
     {

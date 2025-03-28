@@ -1,22 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
+
 using UnityEngine;
 
-public class MeleeBehavior : MonoBehaviour, WeaponBehavior<Melee>
+public class MeleeBehavior : WeaponBehavior
 {
     private Animator animator;
     private bool canAttack = false;
 
-    public void Attack(Melee weapon)
-    {
-        if (CanAttack())
-        {
-            animator.SetTrigger("HitTrigger");
-            canAttack = false;
-        }
-    }
 
     public void OnHit()
     {
@@ -31,14 +20,17 @@ public class MeleeBehavior : MonoBehaviour, WeaponBehavior<Melee>
     {
         animator = GetComponent<Animator>();
     }
-
-    void OnDisable()
-    {
-        animator.StopPlayback();
-    }
-    public bool CanAttack()
+    public override bool CanAttack()
     {
         return canAttack;
+    }
+    public override void Attack(Weapon weapon, Vector3 viewDirection, Vector3 attackOrigin)
+    {
+        if (CanAttack())
+        {
+            animator.SetTrigger("HitTrigger");
+            canAttack = false;
+        }
     }
 
     public string GetInventoryItemName()

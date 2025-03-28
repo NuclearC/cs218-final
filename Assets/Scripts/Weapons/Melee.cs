@@ -9,7 +9,7 @@ public class Melee : Weapon
 
     public override int GetInventoryHudIndex()
     {
-        return 0;
+        return PlayerInventory.INVENTORY_MELEE_INDEX;
     }
 
     public override string GetName()
@@ -33,9 +33,5 @@ public class Melee : Weapon
     public override WeaponType GetWeaponType()
     {
         return WeaponType.Melee;
-    }
-    public override string GetObjectName()
-    {
-        return "Melee";
     }
 }
