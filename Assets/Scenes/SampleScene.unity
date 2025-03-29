@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4724aaed368c022a27b90400b95913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 1
+  mouseSensitivity: 2
   playerEntity: {fileID: 1319099999}
 --- !u!1 &114735665
 GameObject:
@@ -1568,7 +1568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4724aaed368c022a27b90400b95913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 1
+  mouseSensitivity: 2
   playerEntity: {fileID: 1319099999}
 --- !u!1 &1037755960
 GameObject:
@@ -2091,8 +2091,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 3.44
+  near clip plane: 0.1
+  far clip plane: 5
   field of view: 31.1
   orthographic: 0
   orthographic size: 5

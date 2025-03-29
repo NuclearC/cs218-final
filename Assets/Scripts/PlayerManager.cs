@@ -64,6 +64,22 @@ public class PlayerManager : MonoBehaviour
             currentItem != null ? currentItem.GetName() : "none",
             inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
 
+        if (Input.GetButton("Fire2"))
+        {
+            if (currentItem is Weapon)
+            {
+                var obj = inventory.GetInventoryHudObject(currentItem.GetInventoryHudIndex());
+                if (obj)
+                {
+                    var weaponBehavior = obj.GetComponent<WeaponBehavior>();
+                    if (weaponBehavior)
+                    {
+                        weaponBehavior.AttackSecondary(currentItem as Weapon);
+                    }
+                }
+            }
+        }
+
         if (Input.GetButton("Fire1"))
         {
             if (currentItem is Weapon)
@@ -75,7 +91,7 @@ public class PlayerManager : MonoBehaviour
                     if (weaponBehavior && weaponBehavior.CanAttack())
                     {
                         weaponBehavior.Attack(currentItem as Weapon,
-                            Quaternion.Euler(firstPersonCamera.GetViewAngles()) * Vector3.forward,
+                            firstPersonCamera.GetViewDirection(),
                             transform.position);
                     }
                 }

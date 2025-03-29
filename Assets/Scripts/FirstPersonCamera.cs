@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Threading;
 using UnityEngine;
 
 public class FirstPersonCamera : MonoBehaviour
@@ -12,6 +13,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     // Our respective vertical and horizontal viewangles in degrees
     private float lookPitch = 0, lookYaw = 0;
+    private float recoilPitch = 0, recoilYaw = 0;
 
     // the above angles converted to quaternion
     private Quaternion lookQuat = Quaternion.identity;
@@ -27,9 +29,9 @@ public class FirstPersonCamera : MonoBehaviour
         lookPitch = pitch;
     }
 
-    public Vector3 GetViewAngles()
+    public Vector3 GetViewDirection()
     {
-        return new Vector3(lookPitch, lookYaw);
+        return lookDirection;
     }
 
     // Brings the angles into a standard range
@@ -48,10 +50,28 @@ public class FirstPersonCamera : MonoBehaviour
 
         inputHandler = GameManager.Instance.InputHandler;
     }
+
+    public void AddRecoil(float dPitch, float dYaw)
+    {
+        recoilYaw += dYaw;
+        recoilPitch += dPitch;
+    }
+
+    float SlowAdd(out float o, float a, float b, float c)
+    {
+        float d = a * c;
+        o = a - d;
+        return b + d;
+    }
+
     void LateUpdate()
     {
-        lookYaw += inputHandler.MouseX * mouseSensitivity * Time.timeScale;
-        lookPitch -= inputHandler.MouseY * mouseSensitivity * Time.timeScale;
+        lookYaw += inputHandler.MouseX * mouseSensitivity;
+        lookPitch -= inputHandler.MouseY * mouseSensitivity;
+
+        lookYaw = SlowAdd(out recoilYaw, recoilYaw, lookYaw, Time.deltaTime * 18.0f);
+        lookPitch = SlowAdd(out recoilPitch, recoilPitch, lookPitch, Time.deltaTime * 18.0f);
+
         NormalizeViewAngles();
 
         lookQuat = Quaternion.Euler(lookPitch, lookYaw, 0);
@@ -62,6 +82,7 @@ public class FirstPersonCamera : MonoBehaviour
         if (playerEntity)
         {
             playerEntity.rotation = Quaternion.Euler(0, lookYaw, 0);
+
             transform.position = playerEntity.position;
         }
     }

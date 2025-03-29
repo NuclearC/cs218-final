@@ -24,6 +24,9 @@ public class MeleeBehavior : WeaponBehavior
     {
         return canAttack;
     }
+    public override void AttackSecondary(Weapon weapon)
+    {
+    }
     public override void Attack(Weapon weapon, Vector3 viewDirection, Vector3 attackOrigin)
     {
         if (CanAttack())
