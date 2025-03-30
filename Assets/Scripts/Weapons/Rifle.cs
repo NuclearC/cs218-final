@@ -33,13 +33,18 @@ public class Rifle : Weapon
     public void FireBullet(Vector3 origin, Vector3 direction)
     {
         Ray ray = new Ray(origin, direction);
-        if (Physics.Raycast(ray, out var hitInfo, GetRange(), LayerMask.NameToLayer("FirstPersonWeapon")))
+        if (Physics.Raycast(ray, out var hitInfo, GetRange()))
         {
             var rb = hitInfo.collider.GetComponent<Rigidbody>();
             if (rb)
             {
                 rb.AddForceAtPosition(direction * 10.0f, hitInfo.point, ForceMode.Impulse);
             }
+
+            var particlesManager = ParticlesManager.GetParticlesManager();
+            particlesManager.Emit(hitInfo.point, hitInfo.normal);
+
+            Debug.DrawRay(hitInfo.point, hitInfo.normal, Color.red, 5.0F);
         }
     }
 }
