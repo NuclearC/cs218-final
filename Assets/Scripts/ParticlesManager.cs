@@ -21,12 +21,12 @@ public class ParticlesManager : MonoBehaviour
     {
         ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 6; i++)
         {
             emitParams.position = position;
 
             float speed = 5f;
-            float rr = 50.0f;
+            float rr = 90.0f;
             emitParams.velocity = Quaternion.Euler(Random.Range(-rr, rr), Random.Range(-rr, rr), 0.0f) * normal * speed;
 
             pSystem.Emit(emitParams, 1);

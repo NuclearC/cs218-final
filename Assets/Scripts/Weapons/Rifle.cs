@@ -45,6 +45,9 @@ public class Rifle : Weapon
             particlesManager.Emit(hitInfo.point, hitInfo.normal);
 
             Debug.DrawRay(hitInfo.point, hitInfo.normal, Color.red, 5.0F);
+
+            var decalManager = DecalManager.GetDecalManager();
+            decalManager.CreateDecal(hitInfo.collider.gameObject, hitInfo.point + hitInfo.normal * 0.5f, -hitInfo.normal);
         }
     }
 }

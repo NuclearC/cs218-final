@@ -56,6 +56,7 @@ public class PlayerManager : MonoBehaviour
         currentItem = item;
     }
 
+    private bool secondAttack = false;
     // Update is called once per frame
     void Update()
     {
@@ -66,19 +67,25 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetButton("Fire2"))
         {
-            if (currentItem is Weapon)
+            if (secondAttack == false)
             {
-                var obj = inventory.GetInventoryHudObject(currentItem.GetInventoryHudIndex());
-                if (obj)
+                if (currentItem is Weapon)
                 {
-                    var weaponBehavior = obj.GetComponent<WeaponBehavior>();
-                    if (weaponBehavior)
+                    var obj = inventory.GetInventoryHudObject(currentItem.GetInventoryHudIndex());
+                    if (obj)
                     {
-                        weaponBehavior.AttackSecondary(currentItem as Weapon);
+                        var weaponBehavior = obj.GetComponent<WeaponBehavior>();
+                        if (weaponBehavior)
+                        {
+                            weaponBehavior.AttackSecondary(currentItem as Weapon);
+                        }
                     }
                 }
             }
+
+            secondAttack = true;
         }
+        else secondAttack = false;
 
         if (Input.GetButton("Fire1"))
         {
