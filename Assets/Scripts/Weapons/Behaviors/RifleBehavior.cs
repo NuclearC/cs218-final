@@ -17,12 +17,15 @@ public class RifleBehavior : WeaponBehavior
 
     private Vector2 CalculateSpread()
     {
-        if (isScopedIn)
-            return Vector2.zero;
-        // this shit's mostly random
         float y = UnityEngine.Random.Range(-10.0f, 10.0f);
         float x = UnityEngine.Random.Range(-10.0f, 10.0f);
-        return new Vector2(x, y);
+        float factor = 1.0f;
+        if (isScopedIn)
+        {
+            float elapsed = Time.time - nextAttackTime;
+            factor = (1.0f - MathF.Min(1.0f, elapsed)) / 2.0f;
+        }
+        return new Vector2(x, y) * factor;
     }
     public override void AttackSecondary(Weapon weapon)
     {
@@ -34,9 +37,13 @@ public class RifleBehavior : WeaponBehavior
     {
         if (CanAttack() && weapon is Rifle)
         {
+            var soundManager = SoundManager.GetSoundManager();
+
             Rifle rifle = weapon as Rifle;
             if (rifle.CurrentAmmo <= 0)
                 return;
+
+            soundManager.OnRifleFire();
 
             animator.SetTrigger("fireTrigger");
             canAttack = false;
@@ -47,9 +54,9 @@ public class RifleBehavior : WeaponBehavior
 
             rifle.FireBullet(attackOrigin, Quaternion.Euler(spread.x, spread.y, 0.0f) * viewDirection);
 
-            firstPersonCamera.AddRecoil(-5.0f, spread.y);
+            firstPersonCamera.AddRecoil(isScopedIn ? -2.0f : -5.0f, spread.y * UnityEngine.Random.Range(0.5f, 1.0f));
 
-            rifle.CurrentAmmo -= 1;
+            // rifle.CurrentAmmo -= 1;
 
             nextAttackTime = Time.time + 60.0f / 666.0f;
         }

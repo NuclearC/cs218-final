@@ -1,4 +1,8 @@
 
+using System;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Linq;
 using UnityEngine;
 public class Rifle : Weapon
 {
@@ -33,21 +37,23 @@ public class Rifle : Weapon
     public void FireBullet(Vector3 origin, Vector3 direction)
     {
         Ray ray = new Ray(origin, direction);
-        if (Physics.Raycast(ray, out var hitInfo, GetRange()))
+
+        var hits = Physics.RaycastAll(ray, GetRange());
+        // sort by distance
+        Array.Sort(hits, (left, right) => { return left.distance.CompareTo(right.distance); });
+
+        for (int i = 0; i < hits.Length; i++)
         {
-            var rb = hitInfo.collider.GetComponent<Rigidbody>();
-            if (rb)
+            var hitInfo = hits[i];
+
+            var other = hitInfo.collider.gameObject;
+            var hittable = other.GetComponent<HittableBehavior>();
+
+            if (hittable)
             {
-                rb.AddForceAtPosition(direction * 10.0f, hitInfo.point, ForceMode.Impulse);
+                if (hittable.OnBulletImpact(direction, hitInfo.distance, hitInfo.point, hitInfo.normal))
+                    break;
             }
-
-            var particlesManager = ParticlesManager.GetParticlesManager();
-            particlesManager.Emit(hitInfo.point, hitInfo.normal);
-
-            Debug.DrawRay(hitInfo.point, hitInfo.normal, Color.red, 5.0F);
-
-            var decalManager = DecalManager.GetDecalManager();
-            decalManager.CreateDecal(hitInfo.collider.gameObject, hitInfo.point + hitInfo.normal * 0.05f, -hitInfo.normal);
         }
     }
 }
