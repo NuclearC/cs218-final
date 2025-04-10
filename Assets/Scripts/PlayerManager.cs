@@ -18,6 +18,11 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement Movement { get { return movement; } }
     public PlayerInventory Inventory { get { return inventory; } }
 
+    [SerializeField] GameObject testFragGrenade;
+    [SerializeField] float useRadius = 2.0f;
+
+    private bool secondAttack = false;
+
 
     private static PlayerManager localPlayerManager = null;
     public static PlayerManager GetLocalPlayerManager()
@@ -55,17 +60,48 @@ public class PlayerManager : MonoBehaviour
 
         currentItem = item;
     }
-
-    private bool secondAttack = false;
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        UIManager.Instance.UpdateInfoText(0, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
-            currentItem is Weapon ? ((Weapon)currentItem).GetMagazineCapacity() : 0,
-            currentItem != null ? currentItem.GetName() : "none",
-            inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
+    }
 
-        if (Input.GetButton("Fire2"))
+
+    // checks if there are any items in FOV
+    void CheckFOVItems()
+    {
+        var uiManager = UIManager.Instance;
+        bool uiShown = false;
+        if (Physics.Raycast(transform.position, firstPersonCamera.GetViewDirection(),
+                            out var hitInfo, useRadius))
+        {
+            if (hitInfo.collider.TryGetComponent<ItemBehavior>(out var itemBehavior))
+            {
+                uiShown = true;
+                uiManager.ShowFloatingPanel(itemBehavior.DisplayName, Camera.main.WorldToScreenPoint(itemBehavior.transform.position));
+            }
+        }
+
+        if (!uiShown)
+        {
+            uiManager.HideFloatingPanel();
+        }
+    }
+
+    void Use()
+    {
+        if (Physics.Raycast(transform.position, firstPersonCamera.GetViewDirection(),
+                            out var hitInfo, useRadius))
+        {
+            if (hitInfo.collider.TryGetComponent<UsableBehavior>(out var usableBehavior))
+            {
+                usableBehavior.OnUse(this);
+            }
+        }
+    }
+
+    void ProcessInput()
+    {
+        var inputHandler = GameManager.Instance.InputHandler;
+        if (inputHandler.SecondaryAttack)
         {
             if (secondAttack == false)
             {
@@ -87,7 +123,17 @@ public class PlayerManager : MonoBehaviour
         }
         else secondAttack = false;
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetKeyDown(KeyCode.E) && false)
+        {
+            var obj = Instantiate(testFragGrenade, transform.position, Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
+        }
+
+        if (inputHandler.UsePrimary)
+        {
+            Use();
+        }
+
+        if (inputHandler.PrimaryAttack)
         {
             if (currentItem is Weapon)
             {
@@ -105,7 +151,6 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-
         for (int i = (int)KeyCode.Alpha1; i <= (int)KeyCode.Alpha9; i++)
         {
             if (Input.GetKeyDown((KeyCode)i))
@@ -116,5 +161,20 @@ public class PlayerManager : MonoBehaviour
                     SetCurrentItem(item.First());
             }
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        UIManager.Instance.UpdateInfoText(0, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
+            currentItem is Weapon ? ((Weapon)currentItem).GetMagazineCapacity() : 0,
+            currentItem != null ? currentItem.GetName() : "none",
+            inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
+
+        CheckFOVItems();
+    }
+
+    void LateUpdate()
+    {
+        ProcessInput();
     }
 }

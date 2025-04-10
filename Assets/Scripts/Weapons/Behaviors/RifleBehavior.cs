@@ -56,7 +56,7 @@ public class RifleBehavior : WeaponBehavior
 
             firstPersonCamera.AddRecoil(isScopedIn ? -2.0f : -5.0f, spread.y * UnityEngine.Random.Range(0.5f, 1.0f));
 
-            // rifle.CurrentAmmo -= 1;
+            rifle.CurrentAmmo -= 1;
 
             nextAttackTime = Time.time + 60.0f / 666.0f;
         }
