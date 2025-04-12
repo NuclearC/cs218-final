@@ -27,6 +27,12 @@ public class RifleBehavior : WeaponBehavior
         }
         return new Vector2(x, y) * factor;
     }
+    public void Reload(Rifle rifle)
+    {
+        canAttack = false;
+        rifle.Reload();
+        animator.SetTrigger("reload");
+    }
     public override void AttackSecondary(Weapon weapon)
     {
         isScopedIn = !animator.GetBool("scopedIn");

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -151,6 +153,21 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+        if (inputHandler.Reload)
+        {
+            if (currentItem is Rifle)
+            {
+                var obj = inventory.GetInventoryHudObject(currentItem.GetInventoryHudIndex());
+                if (obj)
+                {
+                    if (obj.TryGetComponent<RifleBehavior>(out var rifleBehavior))
+                    {
+                        rifleBehavior.Reload(currentItem as Rifle);
+                    }
+                }
+            }
+        }
+
         for (int i = (int)KeyCode.Alpha1; i <= (int)KeyCode.Alpha9; i++)
         {
             if (Input.GetKeyDown((KeyCode)i))
@@ -166,7 +183,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         UIManager.Instance.UpdateInfoText(0, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
-            currentItem is Weapon ? ((Weapon)currentItem).GetMagazineCapacity() : 0,
+            currentItem is Rifle ? ((Rifle)currentItem).TotalAmmo : 1,
             currentItem != null ? currentItem.GetName() : "none",
             inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
 

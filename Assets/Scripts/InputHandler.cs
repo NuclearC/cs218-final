@@ -12,6 +12,7 @@ public class InputHandler : MonoBehaviour
     public bool PrimaryAttack { get; private set; }
     public bool SecondaryAttack { get; private set; }
     public bool UsePrimary { get; private set; }
+    public bool Reload { get; private set; }
 
     void Update()
     {
@@ -22,6 +23,7 @@ public class InputHandler : MonoBehaviour
 
         PrimaryAttack = Input.GetButton("Fire1");
         SecondaryAttack = Input.GetButtonDown("Fire2");
-        UsePrimary = Input.GetButtonDown("Fire3");
+        UsePrimary = Input.GetKeyDown(KeyCode.E);
+        Reload = Input.GetKeyDown(KeyCode.R);
     }
 }

@@ -9,7 +9,6 @@ public class MeleeBehavior : WeaponBehavior
 
     public void OnHit()
     {
-        Debug.Log("melee hit");
     }
     public void OnReady()
     {

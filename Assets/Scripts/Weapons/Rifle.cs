@@ -7,6 +7,7 @@ using UnityEngine;
 public class Rifle : Weapon
 {
     public int CurrentAmmo { get; set; }
+    public int TotalAmmo { get; set; }
     public override int GetInventoryHudIndex()
     {
         return PlayerInventory.INVENTORY_RIFLE_INDEX;
@@ -32,6 +33,18 @@ public class Rifle : Weapon
     public override WeaponType GetWeaponType()
     {
         return WeaponType.Primary;
+    }
+
+    public void Reload()
+    {
+        int bag = TotalAmmo + CurrentAmmo;
+        int mi = Math.Min(bag, GetMagazineCapacity());
+        TotalAmmo = bag - mi;
+        CurrentAmmo = mi;
+    }
+    public override void AddAmmo(int count)
+    {
+        TotalAmmo += count;
     }
 
     public void FireBullet(Vector3 origin, Vector3 direction)

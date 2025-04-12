@@ -34,4 +34,8 @@ public class Melee : Weapon
     {
         return WeaponType.Melee;
     }
+
+    public override void AddAmmo(int count)
+    {
+    }
 }

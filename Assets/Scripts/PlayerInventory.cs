@@ -20,7 +20,8 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(InventoryItem item)
     {
-        items.Add(item);
+        if (item.OnEquipped(this))
+            items.Add(item);
     }
 
     public void SetActiveItem(InventoryItem item)
@@ -42,6 +43,11 @@ public class PlayerInventory : MonoBehaviour
         if (index >= 0 && index < inventoryHudObjects.Count())
             return inventoryHudObjects[index];
         return null;
+    }
+
+    public Weapon FindWeapon(WeaponType type)
+    {
+        return items.Find(i => i is Weapon && (i as Weapon).GetWeaponType() == type) as Weapon;
     }
 
     public InventoryItem GetItem<T>()

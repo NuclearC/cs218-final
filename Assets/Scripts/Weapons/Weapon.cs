@@ -21,6 +21,8 @@ public abstract class Weapon : InventoryItem
     // get the range of this weapon in Unity units
     public abstract float GetRange();
 
+    public abstract void AddAmmo(int count);
+
     public abstract WeaponType GetWeaponType();
 
     public virtual void Attack()

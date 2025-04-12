@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ItemBehavior : UsableBehavior
 {
-    [SerializeField] string itemDisplayName;
+    [SerializeField] protected string itemDisplayName;
 
-    private InventoryItem inventoryItem;
+    protected InventoryItem inventoryItem;
 
     public string DisplayName { get { return itemDisplayName; } }
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class ItemBehavior : UsableBehavior
 
     public override void OnUse(PlayerManager playerManager)
     {
-        // playerManager.EquipItem(inventoryItem);
+        playerManager.EquipItem(inventoryItem);
         Destroy(gameObject);
     }
 }
