@@ -12,13 +12,8 @@
 [Rr]ecordings/
 
 # ======================
-# Ignore Everything in Assets...
-# ======================
-Assets/**
-
-# ...But Track Only Scenes
-!Assets/Scenes/
-!Assets/Scenes/**
+Assets/ThirdParty/**
+Assets/TextMesh Pro/**
 
 # ======================
 # Unity Meta + Crash Files
