@@ -67,6 +67,7 @@ public class Rifle : Weapon
                 if (hittable.OnBulletImpact(direction, hitInfo.distance, hitInfo.point, hitInfo.normal))
                     break;
             }
+            BulletImpact.OnImpact(other, direction, hitInfo.point, hitInfo.normal);
         }
     }
 }

@@ -29,6 +29,9 @@ public class RifleBehavior : WeaponBehavior
     }
     public void Reload(Rifle rifle)
     {
+        if (rifle.CurrentAmmo >= rifle.GetMagazineCapacity() ||
+            rifle.TotalAmmo <= 0)
+            return;
         canAttack = false;
         rifle.Reload();
         animator.SetTrigger("reload");
