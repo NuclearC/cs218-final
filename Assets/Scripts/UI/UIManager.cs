@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        //topPanel.Show("hello");
+        topPanel.Show("Use the 1,2,3,4 keys to switch the main weapon");
         //bottomPanel.Show("wtf");
 
         floatingPanelPosition = floatingPanel.GetComponent<RectTransform>();

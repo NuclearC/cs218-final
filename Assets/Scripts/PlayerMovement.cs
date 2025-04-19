@@ -12,10 +12,13 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rigidBody;
 
     private float nextFootstepPlayTime = 0.0f;
+
+    private Vector3 startPos = Vector3.zero;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         inputHandler = GameManager.Instance.InputHandler;
+        startPos = transform.position;
     }
 
 
@@ -44,17 +47,24 @@ public class PlayerMovement : MonoBehaviour
 
             rigidBody.MovePosition(rigidBody.position + moveVector * Time.deltaTime * finalMoveSpeed);
 
+        }
+    }
+    void FixedUpdate()
+    {
+        var speed = (rigidBody.position - startPos).magnitude / Time.deltaTime;
+
+        if (speed > 1.0f)
+        {
             // play the sounds
             if (Time.time >= nextFootstepPlayTime)
             {
                 AudioSource.PlayClipAtPoint(footsteps[Random.Range(0, footsteps.Length)], transform.position + Vector3.down);
-                nextFootstepPlayTime = Time.time + 1.0f / finalMoveSpeed;
+                nextFootstepPlayTime = Time.time + 1.0f / speed;
             }
         }
-    }
+        startPos = rigidBody.position;
 
-    void FixedUpdate()
-    {
+
         Move();
     }
 }

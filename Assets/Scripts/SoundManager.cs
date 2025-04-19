@@ -15,6 +15,6 @@ public class SoundManager : MonoBehaviour
 
     public void OnRifleFire(Vector3 point)
     {
-        AudioSource.PlayClipAtPoint(rifleFireAudio, point);
+        AudioSource.PlayClipAtPoint(rifleFireAudio, point, 0.3f);
     }
 }
