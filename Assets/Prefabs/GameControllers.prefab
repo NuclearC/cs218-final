@@ -886,7 +886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3bcbf87cf92dc55a0b1504e281adc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rifleFireAudio: {fileID: 0}
+  rifleFireAudio: {fileID: 8300000, guid: 4f7b9e220a4d4620eb4deceff268ad9f, type: 3}
 --- !u!1 &8721621814333465855
 GameObject:
   m_ObjectHideFlags: 0

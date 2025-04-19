@@ -6,8 +6,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 2.0f;
     [SerializeField] float runSpeed = 2.3f;
+
+    [SerializeField] AudioClip[] footsteps;
     private InputHandler inputHandler;
     private Rigidbody rigidBody;
+
+    private float nextFootstepPlayTime = 0.0f;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -27,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
                 move.Normalize();
             }
 
+            if (move.magnitude < 0.01f)
+                return;
+
             var moveVector = transform.rotation * new Vector3(move.x, 0, move.y);
 
             var finalMoveSpeed = moveSpeed;
@@ -36,6 +43,13 @@ public class PlayerMovement : MonoBehaviour
             }
 
             rigidBody.MovePosition(rigidBody.position + moveVector * Time.deltaTime * finalMoveSpeed);
+
+            // play the sounds
+            if (Time.time >= nextFootstepPlayTime)
+            {
+                AudioSource.PlayClipAtPoint(footsteps[Random.Range(0, footsteps.Length)], transform.position + Vector3.down);
+                nextFootstepPlayTime = Time.time + 1.0f / finalMoveSpeed;
+            }
         }
     }
 

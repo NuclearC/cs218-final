@@ -6,15 +6,15 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager soundManager = null;
 
-    [SerializeField] AudioSource rifleFireAudio;
+    [SerializeField] AudioClip rifleFireAudio;
     public static SoundManager GetSoundManager()
     {
         return soundManager == null ? (soundManager = FindObjectOfType<SoundManager>()) : soundManager;
     }
 
 
-    public void OnRifleFire()
+    public void OnRifleFire(Vector3 point)
     {
-        rifleFireAudio.Play();
+        AudioSource.PlayClipAtPoint(rifleFireAudio, point);
     }
 }
