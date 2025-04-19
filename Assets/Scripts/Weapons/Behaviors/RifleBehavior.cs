@@ -52,7 +52,7 @@ public class RifleBehavior : WeaponBehavior
             if (rifle.CurrentAmmo <= 0)
                 return;
 
-            soundManager.OnRifleFire(attackOrigin);
+            soundManager.OnRifleFire(attackOrigin + viewDirection);
 
             animator.SetTrigger("fireTrigger");
             canAttack = false;

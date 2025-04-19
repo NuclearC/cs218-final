@@ -19,6 +19,8 @@ public class EnemyBehavior : MonoBehaviour
     private NavMeshAgent agent;
     private int currentWaypoint = 0;
 
+    private bool isDead = false;
+
     private float lastSetDestTime = 0;
 
     void Start()
@@ -44,20 +46,32 @@ public class EnemyBehavior : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position);
-        if (distance <= 1.0f)
+        if (!isDead)
         {
-            currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Count();
-        }
-        else
-        {
-            if (Time.time - lastSetDestTime >= 5.0f)
+
+            float distance = Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position);
+            if (distance <= 1.0f)
             {
-                agent.SetDestination(patrolWaypoints[currentWaypoint].position);
-                lastSetDestTime = Time.time;
+                currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Count();
+            }
+            else
+            {
+                if (Time.time - lastSetDestTime >= 5.0f)
+                {
+                    agent.SetDestination(patrolWaypoints[currentWaypoint].position);
+                    lastSetDestTime = Time.time;
+                }
+            }
+            animator.SetFloat("moveSpeed", agent.velocity.magnitude);
+
+
+            if (health <= 0)
+            {
+                animator.SetBool("dead", true);
+                isDead = true;
+
+                Destroy(gameObject);
             }
         }
-
-        animator.SetFloat("moveSpeed", agent.velocity.magnitude);
     }
 }
