@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 2.0f;
+    [SerializeField] float runSpeed = 2.3f;
     private InputHandler inputHandler;
     private Rigidbody rigidBody;
     void Start()
@@ -21,9 +22,20 @@ public class PlayerMovement : MonoBehaviour
         {
             var move = inputHandler.Move.Value;
 
+            if (move.magnitude > 1.0f)
+            {
+                move.Normalize();
+            }
+
             var moveVector = transform.rotation * new Vector3(move.x, 0, move.y);
 
-            rigidBody.MovePosition(rigidBody.position + moveVector * Time.deltaTime * moveSpeed);
+            var finalMoveSpeed = moveSpeed;
+            if (inputHandler.Run)
+            {
+                finalMoveSpeed = runSpeed;
+            }
+
+            rigidBody.MovePosition(rigidBody.position + moveVector * Time.deltaTime * finalMoveSpeed);
         }
     }
 
