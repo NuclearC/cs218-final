@@ -53,6 +53,9 @@ public class PlayerManager : MonoBehaviour
 
     public void EquipItem(InventoryItem item)
     {
+        var soundManager = SoundManager.GetSoundManager();
+        soundManager.PlayEquipSound(transform.position);
+
         inventory.AddItem(item);
     }
 

@@ -35,6 +35,8 @@ public class RifleBehavior : WeaponBehavior
         canAttack = false;
         rifle.Reload();
         animator.SetTrigger("reload");
+        var soundManager = SoundManager.GetSoundManager();
+        soundManager.PlayReloadSound(firstPersonCamera.transform.position);
     }
     public override void AttackSecondary(Weapon weapon)
     {
@@ -53,6 +55,7 @@ public class RifleBehavior : WeaponBehavior
                 return;
 
             soundManager.OnRifleFire(attackOrigin + viewDirection);
+            soundManager.PlayShellDropSound(attackOrigin + Vector3.down);
 
             animator.SetTrigger("fireTrigger");
             canAttack = false;

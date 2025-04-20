@@ -6180,6 +6180,10 @@ PrefabInstance:
       value: 0.56973875
       objectReference: {fileID: 0}
     - target: {fileID: 5624753836238198677, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
+      propertyPath: bloodDecalDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624753836238198677, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
       propertyPath: patrolWaypoints.Array.size
       value: 3
       objectReference: {fileID: 0}

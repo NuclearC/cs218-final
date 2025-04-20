@@ -30,6 +30,9 @@ public class EnemyBehavior : MonoBehaviour
     }
     public void OnBulletImpact(Vector3 direction, Vector3 hitPoint, Vector3 hitNormal)
     {
+        var soundManager = SoundManager.GetSoundManager();
+        soundManager.PlayImpactSound(hitPoint);
+
         var fxManager = FXManager.GetEffectsManager();
 
         fxManager.OnBloodImpact(gameObject, hitPoint, direction);

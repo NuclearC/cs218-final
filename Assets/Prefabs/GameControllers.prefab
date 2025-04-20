@@ -887,6 +887,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rifleFireAudio: {fileID: 8300000, guid: 4f7b9e220a4d4620eb4deceff268ad9f, type: 3}
+  shellSounds:
+  - {fileID: 8300000, guid: 411b3a2ff42728a6d841bc82a4a2af23, type: 3}
+  - {fileID: 8300000, guid: 0161e3dd2f71754a9801844d038d3073, type: 3}
+  - {fileID: 8300000, guid: 656c0aa177aa4560cae3c029546b7ebb, type: 3}
+  impactSounds:
+  - {fileID: 8300000, guid: e5be35b0458eb6e069aa1e182895a683, type: 3}
+  - {fileID: 8300000, guid: acc47fca8483f8df5b886b178896a7b1, type: 3}
+  - {fileID: 8300000, guid: 137edfd0eb3d4398d87140c4ce10af48, type: 3}
+  reloadSound: {fileID: 8300000, guid: fa2febc9564c932fda7092a098c6b5ae, type: 3}
+  equipSound: {fileID: 8300000, guid: 4d3eb85374d885132a27f6be01756d1b, type: 3}
 --- !u!1 &8721621814333465855
 GameObject:
   m_ObjectHideFlags: 0
