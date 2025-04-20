@@ -97,15 +97,18 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        var speed = (rigidBody.position - startPos).magnitude / Time.deltaTime;
-
-        if (speed > 1.0f && Time.time >= nextFootstepPlayTime)
+        if (isGrounded)
         {
-            AudioSource.PlayClipAtPoint(footsteps[Random.Range(0, footsteps.Length)], transform.position + Vector3.down);
-            nextFootstepPlayTime = Time.time + 1.0f / speed;
-        }
+            var speed = (rigidBody.position - startPos).magnitude / Time.deltaTime;
 
-        startPos = rigidBody.position;
+            if (speed > 1.0f && Time.time >= nextFootstepPlayTime)
+            {
+                AudioSource.PlayClipAtPoint(footsteps[Random.Range(0, footsteps.Length)], transform.position + Vector3.down);
+                nextFootstepPlayTime = Time.time + 1.0f / speed;
+            }
+
+            startPos = rigidBody.position;
+        }
 
         Move();
         Jump();
