@@ -51,7 +51,6 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (!isDead)
         {
-
             float distance = Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position);
             if (distance <= 1.0f)
             {
@@ -72,6 +71,8 @@ public class EnemyBehavior : MonoBehaviour
             {
                 animator.SetBool("dead", true);
                 isDead = true;
+
+                EventManager.Instance.OnEnemyDie.Invoke();
 
                 Destroy(gameObject);
             }
