@@ -36,6 +36,7 @@ sysinfo.txt
 # IDE and Editor Junk
 # ======================
 .vs/
+.vscode/
 .gradle/
 ExportedObj/
 .consulo/
