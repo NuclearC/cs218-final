@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (inputHandler.Jump)
         {
             Debug.Log($"[Jump] Space pressed. isGrounded = {isGrounded}, isCrouching = {isCrouching}");
 
@@ -55,20 +55,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private bool crouchState = false;
     private void HandleCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (crouchState == inputHandler.Crouch)
+            return;
+        if (inputHandler.Crouch)
         {
             Debug.Log("[Crouch] Crouch key down");
             playerCollider.height = crouchHeight;
             isCrouching = true;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        else
         {
             Debug.Log("[Crouch] Crouch key up");
             playerCollider.height = originalHeight;
             isCrouching = false;
         }
+        crouchState = inputHandler.Crouch;
     }
 
     private void Move()
@@ -115,11 +119,13 @@ public class PlayerMovement : MonoBehaviour
         HandleCrouch();
     }
 
+    private List<GameObject> groundList = new();
     // ✅ Ground detection using collision
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            groundList.Add(collision.gameObject);
             isGrounded = true;
             Debug.Log("[Grounded] Entered ground collision");
         }
@@ -137,7 +143,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = false;
+            groundList.Remove(collision.gameObject);
+            if (groundList.Count == 0)
+                isGrounded = false;
             Debug.Log("[Grounded] Left ground");
         }
     }

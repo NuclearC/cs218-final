@@ -15,6 +15,13 @@ public class InputHandler : MonoBehaviour
     public bool Reload { get; private set; }
     public bool Run { get; private set; }
 
+    private bool actualJump = false; public bool Jump
+    {
+        get { bool _old = actualJump; actualJump = false; return _old; }
+        private set { if (value) actualJump = value; }
+    }
+
+    public bool Crouch { get; private set; }
     void Update()
     {
         MouseX = Input.GetAxis("Mouse X");
@@ -27,5 +34,7 @@ public class InputHandler : MonoBehaviour
         UsePrimary = Input.GetKeyDown(KeyCode.E);
         Reload = Input.GetKeyDown(KeyCode.R);
         Run = Input.GetKey(KeyCode.LeftShift);
+        Jump = Input.GetButtonDown("Jump");
+        Crouch = Input.GetKey(KeyCode.LeftControl);
     }
 }
