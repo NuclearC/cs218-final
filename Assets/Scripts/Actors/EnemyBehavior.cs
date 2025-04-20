@@ -45,6 +45,12 @@ public class EnemyBehavior : MonoBehaviour
             var decalManager = DecalManager.GetDecalManager();
             decalManager.CreateBloodDecal(hitInfo.collider.gameObject, hitInfo.point + hitInfo.normal * 0.05f, -hitInfo.normal);
         }
+        // project blood decal if there is something downwards
+        if (Physics.Raycast(new Ray(hitPoint, Vector3.down), out hitInfo, bloodDecalDistance, ~(1 << LayerMask.NameToLayer("Enemies"))))
+        {
+            var decalManager = DecalManager.GetDecalManager();
+            decalManager.CreateBloodDecal(hitInfo.collider.gameObject, hitInfo.point + hitInfo.normal * 0.05f, -hitInfo.normal);
+        }
     }
 
     void Update()
