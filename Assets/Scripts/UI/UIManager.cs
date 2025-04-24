@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     {
         if (damageIndicator.gameObject.activeSelf)
         {
-            damageIndicator.color = new Color(1, 1, 1, Math.Max(0, damageIndicator.color.a - Time.deltaTime * 3.0f));
+            damageIndicator.color = new Color(1, 1, 1, Math.Max(0, damageIndicator.color.a - Time.deltaTime * 1.5f));
             if (damageIndicator.color.a < 0.01f)
             {
                 damageIndicator.gameObject.SetActive(false);

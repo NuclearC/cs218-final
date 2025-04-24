@@ -149,8 +149,9 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            health.AddHealth(-5);
-            // var obj = Instantiate(testFragGrenade, transform.position, Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
+            var obj = Instantiate(testFragGrenade, transform.position + firstPersonCamera.GetViewDirection(), Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
+
+            obj.GetComponentInChildren<Rigidbody>().AddForce(firstPersonCamera.GetViewDirection() * 2 + Vector3.up * 3, ForceMode.VelocityChange);
         }
 
         if (inputHandler.UsePrimary)
