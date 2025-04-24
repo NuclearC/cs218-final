@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7644412094110592613, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
       propertyPath: m_Name
-      value: VFX Variant
+      value: Fire-Barrel-Explosion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -81,5 +81,51 @@ PrefabInstance:
     - {fileID: 1251516099517020493, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
     - {fileID: 6554395207547767621, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4865153979545989996, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2750967613459876317}
+    - targetCorrespondingSourceObject: {fileID: 4865153979545989996, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2031157603467873544}
   m_SourcePrefab: {fileID: 100100000, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
+--- !u!1 &3826506115286089793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4865153979545989996, guid: b10592ee3c5e98444bb28689626de8ad, type: 3}
+  m_PrefabInstance: {fileID: 8547274422587126573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2750967613459876317
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826506115286089793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2031157603467873544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826506115286089793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd48f1a2534e42d9ba2b17403b6780a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageInterval: 0.5
+  damage: 5

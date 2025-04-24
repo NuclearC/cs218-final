@@ -87,9 +87,6 @@ public class PlayerManager : MonoBehaviour
 
         currentItem = item;
     }
-    void OnTriggerEnter(Collider other)
-    {
-    }
 
 
     // checks if there are any items in FOV
