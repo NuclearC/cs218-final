@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1407260176840063023}
   - component: {fileID: 2763302861526906580}
   - component: {fileID: 8337394412266665426}
+  - component: {fileID: 4135076363334791655}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -100,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
   runSpeed: 2.3
+  crouchSpeed: 1
+  jumpForce: 5
   footsteps: []
 --- !u!114 &2763302861526906580
 MonoBehaviour:
@@ -133,3 +136,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testFragGrenade: {fileID: 6747168900283411238, guid: c68588e0c9baac04eaa44c73b70394ac, type: 3}
   useRadius: 2
+--- !u!114 &4135076363334791655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748246053467102905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5357e474ccc9d8fa975fe1f07f696c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100

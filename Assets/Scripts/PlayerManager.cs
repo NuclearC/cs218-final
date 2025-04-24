@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
 
     private FirstPersonCamera firstPersonCamera;
 
+    private HealthManager health;
+
     public PlayerMovement Movement { get { return movement; } }
     public PlayerInventory Inventory { get { return inventory; } }
 
@@ -28,9 +30,29 @@ public class PlayerManager : MonoBehaviour
     {
         return localPlayerManager == null ? (localPlayerManager = GameObject.FindWithTag("Player").GetComponent<PlayerManager>()) : localPlayerManager;
     }
+    public void OnHealthChange(int newHealth, int delta)
+    {
+        if (delta < 0)
+        {
+            SoundManager.GetSoundManager().PlayImpactSound(transform.position);
+            UIManager.Instance.FlashDamageIndicator();
+        }
+
+        if (newHealth <= 0)
+        {
+            OnDie();
+        }
+        else
+        {
+
+        }
+    }
 
     void Start()
     {
+        health = GetComponent<HealthManager>();
+        health.OnHealthChange.AddListener(OnHealthChange);
+
         movement = GetComponent<PlayerMovement>();
         inventory = GetComponent<PlayerInventory>();
 
@@ -48,6 +70,9 @@ public class PlayerManager : MonoBehaviour
         SetCurrentItem(inventory.GetItem<Melee>());
     }
 
+    public void OnDie()
+    {
+    }
     public void EquipItem(InventoryItem item)
     {
         var soundManager = SoundManager.GetSoundManager();
@@ -125,9 +150,10 @@ public class PlayerManager : MonoBehaviour
         }
         else secondAttack = false;
 
-        if (Input.GetKeyDown(KeyCode.E) && false)
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            var obj = Instantiate(testFragGrenade, transform.position, Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
+            health.AddHealth(-5);
+            // var obj = Instantiate(testFragGrenade, transform.position, Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
         }
 
         if (inputHandler.UsePrimary)
@@ -182,7 +208,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UIManager.Instance.UpdateInfoText(0, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
+        UIManager.Instance.UpdateInfoText(health.Value, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
             currentItem is Rifle ? ((Rifle)currentItem).TotalAmmo : 1,
             currentItem != null ? currentItem.GetName() : "none",
             inventory.EnumerateItems().Select(i => i.GetName()).ToArray());

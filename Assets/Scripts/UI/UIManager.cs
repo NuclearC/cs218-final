@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] PanelBehavior topPanel;
     [SerializeField] PanelBehavior bottomPanel;
     [SerializeField] PanelBehavior floatingPanel;
+
+    [SerializeField] Image damageIndicator;
     private RectTransform floatingPanelPosition;
 
     void Start()
@@ -23,10 +27,23 @@ public class UIManager : MonoBehaviour
         floatingPanelPosition = floatingPanel.GetComponent<RectTransform>();
     }
 
+    public void FlashDamageIndicator()
+    {
+        damageIndicator.color = new Color(1, 1, 1, 0.5f);
+        damageIndicator.gameObject.SetActive(true);
+    }
+
 
     void Update()
     {
-
+        if (damageIndicator.gameObject.activeSelf)
+        {
+            damageIndicator.color = new Color(1, 1, 1, Math.Max(0, damageIndicator.color.a - Time.deltaTime * 3.0f));
+            if (damageIndicator.color.a < 0.01f)
+            {
+                damageIndicator.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void ShowBottomPanel(string text)
