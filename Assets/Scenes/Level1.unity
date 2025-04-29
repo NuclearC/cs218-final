@@ -6968,21 +6968,9 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 14a07bf31e58c514686284a72902d6e6, type: 2}
-    - target: {fileID: 4126312726992857025, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.42329502
-      objectReference: {fileID: 0}
-    - target: {fileID: 4126312726992857025, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.5537336
-      objectReference: {fileID: 0}
-    - target: {fileID: 4126312726992857025, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.43542886
-      objectReference: {fileID: 0}
-    - target: {fileID: 4126312726992857025, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.56973875
+    - target: {fileID: 5624753836238198677, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
+      propertyPath: damage
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5624753836238198677, guid: 690ffb0718ec47c198cb545bd21b42f0, type: 3}
       propertyPath: bloodDecalDistance
@@ -11748,34 +11736,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: runSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: moveSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: footsteps.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: footsteps.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: afa9f4d74c148b911acc2285a2bdf4c4, type: 3}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: footsteps.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 31006dd4c0edbb69ebf42b8d909461ae, type: 3}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: footsteps.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0ca1d37159dee3f53b69bb51ccbcdbd4, type: 3}
-    - target: {fileID: 1407260176840063023, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: footsteps.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1a339a2b422335a13973293d60562d07, type: 3}
     - target: {fileID: 2763302861526906580, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
       propertyPath: inventoryHudObjects.Array.data[0]
       value: 
@@ -11834,14 +11794,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987351559787624369, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3303706969324179913, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7263577451137050691, guid: bd866b0ee40f09900bc6ff9f9aaeaa45, type: 3}
-      propertyPath: m_Center.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -25421,7 +25373,7 @@ PrefabInstance:
       objectReference: {fileID: 351843562}
     - target: {fileID: 1149432788035811491, guid: 3ee7993389323ed0a8d28f1cbc32ed81, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 55
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 1354848851554553840, guid: 3ee7993389323ed0a8d28f1cbc32ed81, type: 3}
       propertyPath: m_LocalPosition.x

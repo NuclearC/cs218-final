@@ -59,7 +59,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3303706969324179913
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1407260176840063023
@@ -99,11 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b4cb7ac8feb6c7895dcfa9823fb0bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
-  runSpeed: 2.3
+  moveSpeed: 3
+  runSpeed: 5
   crouchSpeed: 1
   jumpForce: 5
-  footsteps: []
+  footsteps:
+  - {fileID: 8300000, guid: afa9f4d74c148b911acc2285a2bdf4c4, type: 3}
+  - {fileID: 8300000, guid: 31006dd4c0edbb69ebf42b8d909461ae, type: 3}
+  - {fileID: 8300000, guid: 0ca1d37159dee3f53b69bb51ccbcdbd4, type: 3}
+  - {fileID: 8300000, guid: 1a339a2b422335a13973293d60562d07, type: 3}
 --- !u!114 &2763302861526906580
 MonoBehaviour:
   m_ObjectHideFlags: 0
