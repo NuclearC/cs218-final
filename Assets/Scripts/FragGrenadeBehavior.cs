@@ -7,10 +7,10 @@ public class FragGrenadeBehavior : MonoBehaviour
 {
     [SerializeField] float explosionTimeDelay = 5.0f;
     [SerializeField] GameObject[] explosionParticles;
-    [SerializeField] GameObject objectToHide;
 
     [SerializeField] AudioClip explosionSound;
     [SerializeField] AudioClip debrisSound;
+    [SerializeField] AudioClip impactSound;
 
     [SerializeField] float range = 10.0f;
     [SerializeField] int baseDamage = 95;
@@ -48,18 +48,25 @@ public class FragGrenadeBehavior : MonoBehaviour
 
     private void Explode()
     {
-        objectToHide.SetActive(false);
-        var explodePosition = objectToHide.transform.position;
+        var explodePosition = transform.position;
         foreach (var go in explosionParticles)
         {
-            Instantiate(go, explodePosition, Quaternion.Euler(-90, 0, 0), transform);
+            Instantiate(go, explodePosition, Quaternion.Euler(-90, 0, 0));
         }
         DamageWave(explodePosition);
         AudioSource.PlayClipAtPoint(explosionSound, explodePosition);
         AudioSource.PlayClipAtPoint(debrisSound, explodePosition);
-        Destroy(gameObject, 5.0f);
         exploded = true;
+
+        Destroy(gameObject);
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.contactCount > 0 && collision.contacts[0].impulse.magnitude > 2)
+            AudioSource.PlayClipAtPoint(impactSound, collision.contacts[0].point, 0.2f);
+    }
+
     void Update()
     {
         if (Time.time >= explosionTime && !exploded)
