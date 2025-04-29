@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
+  m_LocalScale: {x: 0.11, y: 0.11, z: 0.11}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7317516875159800760}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cd63b09c8cba8dbbad2d01e1ae9274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionTimeDelay: 5
+  explosionTimeDelay: 3.7
   explosionParticles:
   - {fileID: 8941965759148429686, guid: e218b0289a945eca1b862dcba95ddeef, type: 3}
   - {fileID: 4993016372591987017, guid: b270c251aaa18ec24b791ad16d266593, type: 3}

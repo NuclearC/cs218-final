@@ -24,6 +24,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool secondAttack = false;
 
+    private bool isDead = false;
+
 
     private static PlayerManager localPlayerManager = null;
     public static PlayerManager GetLocalPlayerManager()
@@ -32,7 +34,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void OnHealthChange(int newHealth, int delta)
     {
-        if (delta < 0)
+        if (delta < 0 && !isDead)
         {
             SoundManager.GetSoundManager().PlayImpactSound(transform.position);
             UIManager.Instance.FlashDamageIndicator();
@@ -74,7 +76,7 @@ public class PlayerManager : MonoBehaviour
         ui.ShowMenu("You died");
         ui.ShowDamageIndicator();
         firstPersonCamera.Locked = true;
-
+        isDead = true;
         inventory.HideHUD();
     }
     public void EquipItem(InventoryItem item)
@@ -157,6 +159,7 @@ public class PlayerManager : MonoBehaviour
             var obj = Instantiate(testFragGrenade, transform.position + firstPersonCamera.GetViewDirection(), Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
 
             obj.GetComponentInChildren<Rigidbody>().AddForce(firstPersonCamera.GetViewDirection() * 2 + Vector3.up * 3, ForceMode.VelocityChange);
+            obj.GetComponentInChildren<Rigidbody>().AddRelativeTorque(Vector3.right + Vector3.up);
         }
 
         if (inputHandler.UsePrimary)
