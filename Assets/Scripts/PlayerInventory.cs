@@ -18,6 +18,14 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] GameObject[] inventoryHudObjects;
 
+    public void HideHUD()
+    {
+        foreach (var go in inventoryHudObjects)
+        {
+            go.SetActive(false);
+        }
+    }
+
     public void AddItem(InventoryItem item)
     {
         if (item.OnEquipped(this))

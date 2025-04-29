@@ -42,10 +42,6 @@ public class PlayerManager : MonoBehaviour
         {
             OnDie();
         }
-        else
-        {
-
-        }
     }
 
     void Start()
@@ -72,6 +68,14 @@ public class PlayerManager : MonoBehaviour
 
     public void OnDie()
     {
+        GameManager.Instance.CursorUnlock();
+        movement.Freeze = true;
+        var ui = UIManager.Instance;
+        ui.ShowMenu("You died");
+        ui.ShowDamageIndicator();
+        firstPersonCamera.Locked = true;
+
+        inventory.HideHUD();
     }
     public void EquipItem(InventoryItem item)
     {
@@ -124,6 +128,7 @@ public class PlayerManager : MonoBehaviour
 
     void ProcessInput()
     {
+        if (health.Value <= 0) return;
         var inputHandler = GameManager.Instance.InputHandler;
         if (inputHandler.SecondaryAttack)
         {

@@ -21,6 +21,11 @@ public class FirstPersonCamera : MonoBehaviour
     // and then converted to Vector3
     private Vector3 lookDirection = Vector3.forward;
 
+    public bool Locked
+    {
+        get; set;
+    } = false;
+
     private InputHandler inputHandler;
 
     public void SetViewAngles(float yaw, float pitch)
@@ -66,6 +71,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     void LateUpdate()
     {
+        if (Locked) return;
         lookYaw += inputHandler.MouseX * mouseSensitivity;
         lookPitch -= inputHandler.MouseY * mouseSensitivity;
 

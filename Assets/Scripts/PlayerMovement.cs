@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private float nextFootstepPlayTime = 0.0f;
     private Vector3 startPos = Vector3.zero;
 
+    public bool Freeze { get; set; }
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -101,6 +103,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Freeze)
+        {
+            if (!rigidBody.isKinematic)
+                rigidBody.isKinematic = true;
+
+            return;
+        }
+
         if (isGrounded)
         {
             var speed = (rigidBody.position - startPos).magnitude / Time.deltaTime;

@@ -18,15 +18,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] PanelBehavior topPanel;
     [SerializeField] PanelBehavior bottomPanel;
     [SerializeField] PanelBehavior floatingPanel;
+    [SerializeField] GameObject menuPanel;
+    [SerializeField] TMP_Text menuText;
 
     [SerializeField] Image damageIndicator;
     private RectTransform floatingPanelPosition;
+
+    private bool damageShow;
 
     void Start()
     {
         floatingPanelPosition = floatingPanel.GetComponent<RectTransform>();
     }
 
+    public void HideDamageIndicator()
+    {
+        damageShow = false;
+        damageIndicator.gameObject.SetActive(false);
+    }
+    public void ShowDamageIndicator()
+    {
+        damageShow = true;
+        damageIndicator.color = new Color(1, 1, 1, 0.5f);
+        damageIndicator.gameObject.SetActive(true);
+    }
     public void FlashDamageIndicator()
     {
         damageIndicator.color = new Color(1, 1, 1, 0.5f);
@@ -36,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (damageIndicator.gameObject.activeSelf)
+        if (damageShow == false && damageIndicator.gameObject.activeSelf)
         {
             damageIndicator.color = new Color(1, 1, 1, Math.Max(0, damageIndicator.color.a - Time.deltaTime * 1.5f));
             if (damageIndicator.color.a < 0.01f)
@@ -44,6 +59,12 @@ public class UIManager : MonoBehaviour
                 damageIndicator.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void ShowMenu(string text)
+    {
+        menuText.text = text;
+        menuPanel.SetActive(true);
     }
 
     public void ShowBottomPanel(string text)

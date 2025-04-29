@@ -8,13 +8,12 @@ using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour
 {
-
-    [SerializeField] int health = 100;
     [SerializeField] float bloodDecalDistance = 2.0f;
 
     [SerializeField] Transform[] patrolWaypoints;
 
     private Animator animator;
+    private HealthManager health;
 
     private NavMeshAgent agent;
     private int currentWaypoint = 0;
@@ -27,6 +26,19 @@ public class EnemyBehavior : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        health = GetComponent<HealthManager>();
+
+        health.OnHealthChange.AddListener((int newHealth, int change) =>
+        {
+            print("enemy health change " + newHealth);
+            if (isDead == false && newHealth <= 0)
+            {
+                isDead = true;
+                animator.SetBool("dead", true);
+
+                EventManager.Instance.OnEnemyDie.Invoke();
+            }
+        });
     }
     public void OnBulletImpact(Vector3 direction, Vector3 hitPoint, Vector3 hitNormal)
     {
@@ -37,7 +49,8 @@ public class EnemyBehavior : MonoBehaviour
 
         fxManager.OnBloodImpact(gameObject, hitPoint, direction);
 
-        health -= 20;
+        if (isDead == false)
+            health.AddHealth(-20);
 
         // project blood decal if there is something behind
         if (Physics.Raycast(new Ray(hitPoint, direction), out var hitInfo, bloodDecalDistance, ~(1 << LayerMask.NameToLayer("Enemies"))))
@@ -71,17 +84,6 @@ public class EnemyBehavior : MonoBehaviour
                 }
             }
             animator.SetFloat("moveSpeed", agent.velocity.magnitude);
-
-
-            if (health <= 0)
-            {
-                animator.SetBool("dead", true);
-                isDead = true;
-
-                EventManager.Instance.OnEnemyDie.Invoke();
-
-                Destroy(gameObject);
-            }
         }
     }
 }
