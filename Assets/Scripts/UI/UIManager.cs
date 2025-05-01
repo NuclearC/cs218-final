@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +25,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text menuText;
 
     [SerializeField] Image damageIndicator;
+    [Header("HUD/Health")]
+    [SerializeField] Image healthBar;
+    [SerializeField] TMP_Text healthText;
+    [Header("HUD/Ammo")]
+    [SerializeField] Image ammoBar;
+    [SerializeField] TMP_Text ammoText;
+
     private RectTransform floatingPanelPosition;
 
     private bool damageShow;
@@ -95,11 +104,41 @@ public class UIManager : MonoBehaviour
         floatingPanelPosition.position = position;
     }
 
-    public void UpdateInfoText(int health, int ammo, int ammoTotal, string currentWeapon, string[] inventory)
+    private Color HSVInterp(Color c1, Color c2, float val)
+    {
+        float h, s, v;
+        Color.RGBToHSV(c1, out h, out s, out v);
+        var vec1 = new Vector3(h, s, v);
+        Color.RGBToHSV(c2, out h, out s, out v);
+        var vec2 = new Vector3(h, s, v);
+
+        var interp = vec2 + (vec1 - vec2) * val;
+
+        return Color.HSVToRGB(interp.x, interp.y, interp.z);
+    }
+    public void UpdateInfoText(int health, int ammo, int magazineCap, int ammoTotal, string currentWeapon, string[] inventory)
     {
         debugText.text = "HEALTH: " + health + "/100 \n"
             + "AMMO: " + ammo + "/" + ammoTotal + "\n"
             + "WEAPON: " + currentWeapon + "\n"
             + "INVENTORY: " + string.Join(",", inventory);
+
+        float val = Math.Clamp(health / 100.0f, 0f, 1f);
+        healthBar.fillAmount = val;
+        healthText.text = health.ToString();
+        healthBar.color = HSVInterp(Color.green * 0.5f, Color.red * 0.5f, val);
+
+        if (magazineCap == 0)
+        {
+            ammoBar.fillAmount = 1;
+            ammoText.text = "1/1";
+        }
+        else
+        {
+            val = Math.Clamp(ammo / (float)magazineCap, 0f, 1f);
+            ammoBar.fillAmount = val;
+            ammoBar.color = HSVInterp(Color.yellow * 0.9f, Color.red * 0.9f, val);
+            ammoText.text = ammo + "/" + ammoTotal;
+        }
     }
 }

@@ -221,6 +221,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         UIManager.Instance.UpdateInfoText(health.Value, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
+            currentItem is Rifle ? ((Rifle)currentItem).GetMagazineCapacity() : 1,
             currentItem is Rifle ? ((Rifle)currentItem).TotalAmmo : 1,
             currentItem != null ? currentItem.GetName() : "none",
             inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
