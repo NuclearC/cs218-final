@@ -25,7 +25,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private float lastHitTime = 0;
     [SerializeField] float hitInterval = 0.5f;
-    [SerializeField] float chaseDistance = 5.0f;
+    [SerializeField] float chaseDistance = 10.0f;
 
 
     [SerializeField] float chaseSpeed = 3.0f;
@@ -183,10 +183,12 @@ public class EnemyBehavior : MonoBehaviour
                 Patrol();
                 if (playerDistance < chaseDistance)
                     SetState(BehavioralState.Chase);
+                else
+                    SetState(BehavioralState.Patrol);
                 break;
             case BehavioralState.Chase:
                 Chase();
-                if (playerDistance > 3.0 * chaseDistance)
+                if (playerDistance >= chaseDistance)
                     SetState(BehavioralState.Wait);
                 break;
             case BehavioralState.Wait:
