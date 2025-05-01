@@ -104,6 +104,8 @@ public class EnemyBehavior : MonoBehaviour
         if (isDead == false)
             health.AddHealth(-20);
 
+        currentState = BehavioralState.Chase;
+
         // project blood decal if there is something behind
         if (Physics.Raycast(new Ray(hitPoint, direction), out var hitInfo, bloodDecalDistance, ~(1 << LayerMask.NameToLayer("Enemies"))))
         {
@@ -184,7 +186,7 @@ public class EnemyBehavior : MonoBehaviour
                 break;
             case BehavioralState.Chase:
                 Chase();
-                if (playerDistance > 2.0 * chaseDistance)
+                if (playerDistance > 3.0 * chaseDistance)
                     SetState(BehavioralState.Wait);
                 break;
             case BehavioralState.Wait:

@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (speed > 1.0f && Time.time >= nextFootstepPlayTime)
             {
-                AudioSource.PlayClipAtPoint(footsteps[Random.Range(0, footsteps.Length)], transform.position + Vector3.down);
+                AudioSource.PlayClipAtPoint(footsteps[Random.Range(0, footsteps.Length)], transform.position + Vector3.down, 0.4f);
                 nextFootstepPlayTime = Time.time + 1.0f / speed;
             }
 
