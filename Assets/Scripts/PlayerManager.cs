@@ -131,6 +131,7 @@ public class PlayerManager : MonoBehaviour
     void ProcessInput()
     {
         if (health.Value <= 0) return;
+        if (GameManager.Instance.IsPaused) return;
         var inputHandler = GameManager.Instance.InputHandler;
         if (inputHandler.SecondaryAttack)
         {
@@ -198,6 +199,11 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (inputHandler.Escape)
+        {
+            GameManager.Instance.Pause();
         }
 
         for (int i = (int)KeyCode.Alpha1; i <= (int)KeyCode.Alpha9; i++)

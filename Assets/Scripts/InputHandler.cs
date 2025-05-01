@@ -13,6 +13,7 @@ public class InputHandler : MonoBehaviour
     public bool SecondaryAttack { get; private set; }
     public bool UsePrimary { get; private set; }
     public bool Reload { get; private set; }
+    public bool Escape { get; private set; }
     public bool Run { get; private set; }
 
     private bool actualJump = false; public bool Jump
@@ -36,5 +37,6 @@ public class InputHandler : MonoBehaviour
         Run = Input.GetKey(KeyCode.LeftShift);
         Jump = Input.GetButtonDown("Jump");
         Crouch = Input.GetKey(KeyCode.LeftControl);
+        Escape = Input.GetKeyDown(KeyCode.Escape);
     }
 }

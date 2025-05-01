@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     {
         get { return singleton ? singleton : (singleton = FindObjectOfType<GameManager>()); }
     }
+    public bool IsPaused { get; private set; }
     void Awake()
     {
         InputHandler = GetComponent<InputHandler>();
@@ -36,5 +38,31 @@ public class GameManager : MonoBehaviour
     public void GameEnd()
     {
         // TODO: implement
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1;
+    }
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void Pause()
+    {
+        CursorUnlock();
+        IsPaused = true;
+        Time.timeScale = 0;
+        var ui = UIManager.Instance;
+        ui.ShowMenu("Paused", true);
+    }
+    public void Resume()
+    {
+        CursorLock();
+        IsPaused = false;
+        Time.timeScale = 1;
+        var ui = UIManager.Instance;
+        ui.HideMenu();
     }
 }

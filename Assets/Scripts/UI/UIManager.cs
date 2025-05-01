@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] PanelBehavior bottomPanel;
     [SerializeField] PanelBehavior floatingPanel;
     [SerializeField] GameObject menuPanel;
+    [SerializeField] GameObject menuContinuteButton;
     [SerializeField] TMP_Text menuText;
 
     [SerializeField] Image damageIndicator;
@@ -61,10 +62,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowMenu(string text)
+    public void ShowMenu(string text, bool canContinute = false)
     {
+        if (menuPanel.activeSelf) return;
+
         menuText.text = text;
+        if (canContinute) menuContinuteButton.SetActive(true);
+        else menuContinuteButton.SetActive(false);
         menuPanel.SetActive(true);
+    }
+    public void HideMenu()
+    {
+        menuPanel.SetActive(false);
     }
 
     public void ShowBottomPanel(string text)

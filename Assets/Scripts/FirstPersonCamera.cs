@@ -72,6 +72,7 @@ public class FirstPersonCamera : MonoBehaviour
     void LateUpdate()
     {
         if (Locked) return;
+        if (GameManager.Instance.IsPaused) return;
         lookYaw += inputHandler.MouseX * mouseSensitivity;
         lookPitch -= inputHandler.MouseY * mouseSensitivity;
 
