@@ -2079,7 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6f4976c4739cb7aba2cd0030501218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToKill: 3
 --- !u!1 &7206817483252971193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,6 +2571,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e5be35b0458eb6e069aa1e182895a683, type: 3}
   - {fileID: 8300000, guid: acc47fca8483f8df5b886b178896a7b1, type: 3}
   - {fileID: 8300000, guid: 137edfd0eb3d4398d87140c4ce10af48, type: 3}
+  fleshImpactSounds:
+  - {fileID: 8300000, guid: 1faa7f3dbc3de657488bc9b31a892033, type: 3}
+  - {fileID: 8300000, guid: 21c1ccd5bec6f3e50b3adb08694ed57a, type: 3}
+  - {fileID: 8300000, guid: 3e05c4a957f21bf309bac725d9c8d4a1, type: 3}
+  - {fileID: 8300000, guid: f7c0e72e2cd520459b85193e2f90ec59, type: 3}
+  - {fileID: 8300000, guid: 0c2f1c787b34b61c3b99058a214943d4, type: 3}
   reloadSound: {fileID: 8300000, guid: fa2febc9564c932fda7092a098c6b5ae, type: 3}
   equipSound: {fileID: 8300000, guid: 4d3eb85374d885132a27f6be01756d1b, type: 3}
 --- !u!1 &8721621814333465855

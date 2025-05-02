@@ -32,6 +32,9 @@ public class MeleeBehavior : WeaponBehavior
         {
             animator.SetTrigger("HitTrigger");
             canAttack = false;
+
+            Melee melee = weapon as Melee;
+            melee.Attack(attackOrigin, viewDirection);
         }
     }
 

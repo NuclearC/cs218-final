@@ -1,15 +1,17 @@
 
+using System.Linq;
 using UnityEngine;
 
 public class Objective : MonoBehaviour
 {
     private int enemiesKilled = 0;
 
-    [SerializeField] int enemiesToKill = 3;
+    private int enemiesToKill = 0;
 
     bool isCompleted = false;
     void Start()
     {
+        enemiesToKill = FindObjectsByType<EnemyBehavior>(FindObjectsSortMode.None).Count();
         var ui = UIManager.Instance;
         ui.ShowBottomPanel("<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies");
         EventManager.Instance.OnEnemyDie.AddListener(() =>

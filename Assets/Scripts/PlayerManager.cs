@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -92,6 +91,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetCurrentItem(InventoryItem item)
     {
+        if (item == null) return;
         inventory.SetActiveItem(item);
 
         currentItem = item;
@@ -131,7 +131,7 @@ public class PlayerManager : MonoBehaviour
 
                     var dv = Vector3.Dot(d, d2);
                     float raw = Mathf.Acos(dv / (d.magnitude * d2.magnitude));
-                    print(Mathf.Rad2Deg * raw);
+
                     if (Mathf.Sign(Vector3.Dot(d, d3)) < 0)
                     {
                         raw = 2 * Mathf.PI - raw;
@@ -242,6 +242,20 @@ public class PlayerManager : MonoBehaviour
         if (inputHandler.Escape)
         {
             GameManager.Instance.Pause();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (inventory.CurrentItem.GetInventoryHudIndex() == PlayerInventory.INVENTORY_NIGHTVISION_INDEX)
+            {
+                SetCurrentItem(inventory.FindWeapon(WeaponType.Primary));
+            }
+            else
+            {
+                var item = inventory.EnumerateItems().Where(it => it.GetInventoryHudIndex() == PlayerInventory.INVENTORY_NIGHTVISION_INDEX);
+                if (item.Count() > 0)
+                    SetCurrentItem(item.First());
+            }
         }
 
         for (int i = (int)KeyCode.Alpha1; i <= (int)KeyCode.Alpha9; i++)

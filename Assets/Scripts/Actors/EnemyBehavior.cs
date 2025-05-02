@@ -94,7 +94,7 @@ public class EnemyBehavior : MonoBehaviour
         if (!isDead)
         {
             var soundManager = SoundManager.GetSoundManager();
-            soundManager.PlayImpactSound(hitPoint);
+            soundManager.PlayFleshImpactSound(hitPoint);
         }
 
         var fxManager = FXManager.GetEffectsManager();

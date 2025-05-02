@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] shellSounds;
     [SerializeField] AudioClip[] impactSounds;
+    [SerializeField] AudioClip[] fleshImpactSounds;
     [SerializeField] AudioClip reloadSound;
     [SerializeField] AudioClip equipSound;
     public static SoundManager GetSoundManager()
@@ -32,6 +33,11 @@ public class SoundManager : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(impactSounds[Random.Range(0, impactSounds.Count())], point);
     }
+    public void PlayFleshImpactSound(Vector3 point)
+    {
+        AudioSource.PlayClipAtPoint(fleshImpactSounds[Random.Range(0, fleshImpactSounds.Count())], point);
+    }
+
     public void PlayReloadSound(Vector3 point)
     {
         AudioSource.PlayClipAtPoint(reloadSound, point, 1.0f);
