@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +33,12 @@ public class UIManager : MonoBehaviour
     [Header("HUD/Ammo")]
     [SerializeField] Image ammoBar;
     [SerializeField] TMP_Text ammoText;
+
+    [Header("HUD/Arrow")]
+    [SerializeField] Image arrow;
+    [SerializeField] float arrowRadius;
+
+    private float arrowCurrentAngle;
 
     private RectTransform floatingPanelPosition;
 
@@ -69,6 +77,19 @@ public class UIManager : MonoBehaviour
                 damageIndicator.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void ShowArrow(float angle)
+    {
+        arrow.gameObject.SetActive(true);
+        arrowCurrentAngle = Mathf.LerpAngle(arrowCurrentAngle, angle, Time.deltaTime * 20.0f);
+        arrow.rectTransform.anchoredPosition = new Vector2(Mathf.Cos(Mathf.Deg2Rad * arrowCurrentAngle), Mathf.Sin(Mathf.Deg2Rad * arrowCurrentAngle)) * arrowRadius;
+        arrow.rectTransform.localRotation = Quaternion.Euler(0, 0, arrowCurrentAngle);
+    }
+
+    public void HideArrow()
+    {
+        arrow.gameObject.SetActive(false);
     }
 
     public void ShowMenu(string text, bool canContinute = false)

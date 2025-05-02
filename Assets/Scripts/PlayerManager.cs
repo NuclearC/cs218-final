@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -21,6 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] GameObject testFragGrenade;
     [SerializeField] float useRadius = 2.0f;
+    [SerializeField] float hintRadius = 5.0f;
 
     private bool secondAttack = false;
 
@@ -109,6 +112,41 @@ public class PlayerManager : MonoBehaviour
                 uiManager.ShowFloatingPanel(itemBehavior.DisplayName, Camera.main.WorldToScreenPoint(itemBehavior.transform.position));
             }
         }
+
+        var colliders = Physics.OverlapSphere(transform.position, hintRadius);
+        float angle = 0.0f;
+        float dist = 0.0f;
+        bool found = false;
+        if (colliders.Length > 0)
+        {
+            foreach (var col in colliders)
+            {
+                if (col.TryGetComponent<UsableBehavior>(out var usable))
+                {
+                    var d = usable.transform.position - transform.position;
+                    dist = d.magnitude;
+                    var d2 = Camera.main.transform.rotation * Vector3.right;
+
+                    var d3 = Camera.main.transform.rotation * Vector3.forward;
+
+                    var dv = Vector3.Dot(d, d2);
+                    float raw = Mathf.Acos(dv / (d.magnitude * d2.magnitude));
+                    print(Mathf.Rad2Deg * raw);
+                    if (Mathf.Sign(Vector3.Dot(d, d3)) < 0)
+                    {
+                        raw = 2 * Mathf.PI - raw;
+                    }
+
+                    angle = Mathf.Rad2Deg * raw;
+                    found = true;
+                }
+            }
+        }
+        if (found && (Math.Abs(angle - 90.0f) > 20.0f || dist > hintRadius / 2))
+        {
+            uiManager.ShowArrow(angle);
+        }
+        else uiManager.HideArrow();
 
         if (!uiShown)
         {
