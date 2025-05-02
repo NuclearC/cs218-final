@@ -6,12 +6,17 @@ public class MeleeBehavior : WeaponBehavior
     private Animator animator;
     private bool canAttack = false;
 
+    private Melee melee;
+    private Vector3 attackOrigin, attackDirection;
+
 
     public void OnHit()
     {
+        melee.Attack(attackOrigin, attackDirection);
     }
     public void OnReady()
     {
+        print("ready");
         canAttack = true;
     }
 
@@ -30,11 +35,11 @@ public class MeleeBehavior : WeaponBehavior
     {
         if (CanAttack())
         {
+            melee = weapon as Melee;
+            attackDirection = viewDirection;
+            this.attackOrigin = attackOrigin;
             animator.SetTrigger("HitTrigger");
             canAttack = false;
-
-            Melee melee = weapon as Melee;
-            melee.Attack(attackOrigin, viewDirection);
         }
     }
 

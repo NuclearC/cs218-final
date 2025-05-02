@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class Melee : Weapon
@@ -28,7 +29,7 @@ public class Melee : Weapon
 
     public override float GetRange()
     {
-        return 50.0f;
+        return 1.2f;
     }
     public override WeaponType GetWeaponType()
     {
@@ -37,5 +38,28 @@ public class Melee : Weapon
 
     public override void AddAmmo(int count)
     {
+    }
+
+    public virtual void Attack(Vector3 origin, Vector3 direction)
+    {
+        Ray ray = new Ray(origin, direction);
+
+        var hits = Physics.RaycastAll(ray, GetRange());
+        // sort by distance
+        Array.Sort(hits, (left, right) => { return left.distance.CompareTo(right.distance); });
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            var hitInfo = hits[i];
+
+            var other = hitInfo.collider.gameObject;
+            var hittable = other.GetComponent<HittableBehavior>();
+
+            if (hittable)
+            {
+                if (hittable.OnBulletImpact(direction, hitInfo.distance, hitInfo.point, hitInfo.normal))
+                    break;
+            }
+        }
     }
 }
