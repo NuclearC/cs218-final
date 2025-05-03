@@ -94,7 +94,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7474214891846389}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 72b862b6e99a8942ca6c185dd46018f7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

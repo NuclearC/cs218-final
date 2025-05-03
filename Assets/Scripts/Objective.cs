@@ -1,19 +1,28 @@
 
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Objective : MonoBehaviour
 {
     private int enemiesKilled = 0;
 
-    private int enemiesToKill = 0;
+    [SerializeField] int enemiesToKill = 0;
+
+    [SerializeField] string text = "";
 
     bool isCompleted = false;
     void Start()
     {
-        enemiesToKill = FindObjectsByType<EnemyBehavior>(FindObjectsSortMode.None).Count();
+        int tmp = FindObjectsByType<EnemyBehavior>(FindObjectsSortMode.None).Count();
+        if (tmp > 0)
+            enemiesToKill = tmp;
         var ui = UIManager.Instance;
-        ui.ShowBottomPanel("<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies");
+
+        if (text != "")
+            ui.ShowBottomPanel("<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies and \n <color=\"red\">" + text);
+        else
+            ui.ShowBottomPanel("<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies");
         EventManager.Instance.OnEnemyDie.AddListener(() =>
         {
             enemiesKilled++;

@@ -23,10 +23,15 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject testFragGrenade;
     [SerializeField] float useRadius = 2.0f;
     [SerializeField] float hintRadius = 5.0f;
+    [SerializeField] AudioSource heartBeat;
 
     private bool secondAttack = false;
 
     private bool isDead = false;
+
+    public bool IsDead { get { return isDead; } }
+
+    private float heartBeatPlayTime = 0.0f;
 
 
     private static PlayerManager localPlayerManager = null;
@@ -34,16 +39,34 @@ public class PlayerManager : MonoBehaviour
     {
         return localPlayerManager == null ? (localPlayerManager = GameObject.FindWithTag("Player").GetComponent<PlayerManager>()) : localPlayerManager;
     }
+
+    private void HeartBeatSound()
+    {
+        float elapsed = Time.time - heartBeatPlayTime;
+        if (elapsed > 10.0f && heartBeat.isPlaying)
+        {
+            heartBeat.Stop();
+        }
+        else if (elapsed > 5.0f && heartBeat.isPlaying)
+        {
+            float volume = (10.0f - elapsed) / 5.0f;
+            heartBeat.volume = volume;
+        }
+    }
     public void OnHealthChange(int newHealth, int delta)
     {
         if (delta < 0 && !isDead)
         {
             SoundManager.GetSoundManager().PlayImpactSound(transform.position);
             UIManager.Instance.FlashDamageIndicator();
+            heartBeat.volume = 1.0f;
+            heartBeat.Play();
+            heartBeatPlayTime = Time.time;
         }
 
         if (newHealth <= 0)
         {
+            heartBeat.Stop();
             OnDie();
         }
     }
@@ -279,6 +302,7 @@ public class PlayerManager : MonoBehaviour
             inventory.EnumerateItems().Select(i => i.GetName()).ToArray());
 
         CheckFOVItems();
+        HeartBeatSound();
     }
 
     void LateUpdate()

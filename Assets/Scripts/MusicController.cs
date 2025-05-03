@@ -7,8 +7,9 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
+    private AudioSource audioSource;
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        audioSource = GetComponent<AudioSource>();
     }
 }

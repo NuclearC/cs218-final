@@ -5,6 +5,7 @@ using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Analytics;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -166,6 +167,7 @@ public class EnemyBehavior : MonoBehaviour
             playerDistance = Vector3.Distance(transform.position, playerTransform.position);
         }
 
+
         if (playerDistance < 10.0f)
         {
             var speed = agent.velocity.magnitude * 1.5f;
@@ -180,15 +182,20 @@ public class EnemyBehavior : MonoBehaviour
         switch (currentState)
         {
             case BehavioralState.Patrol:
-                Patrol();
-                if (playerDistance < chaseDistance)
-                    SetState(BehavioralState.Chase);
-                else
-                    SetState(BehavioralState.Patrol);
-                break;
+                if (patrolWaypoints.Length > 0)
+                {
+                    Patrol();
+                    if (playerDistance < chaseDistance)
+                        SetState(BehavioralState.Chase);
+                    else
+                        SetState(BehavioralState.Patrol);
+                    break;
+                }
+                goto case BehavioralState.Chase;
             case BehavioralState.Chase:
                 Chase();
-                if (playerDistance >= chaseDistance)
+                if (playerDistance >= chaseDistance
+                && patrolWaypoints.Length > 0)
                     SetState(BehavioralState.Wait);
                 break;
             case BehavioralState.Wait:
