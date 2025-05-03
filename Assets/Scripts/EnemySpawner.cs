@@ -32,9 +32,6 @@ public class EnemySpawner : MonoBehaviour
     }
     private void SpawnRandomEnemy()
     {
-        nextEnemySpawn = Time.time + spawnInterval;
-        enemiesSpawned++;
-        print("spawned an enemy " + enemiesSpawned);
         int r = UnityEngine.Random.Range(0, 10);
 
         for (int i = 0; i < 10; i++)
@@ -44,6 +41,9 @@ public class EnemySpawner : MonoBehaviour
             if (IsPositionSafe(vec))
             {
                 Instantiate(enemyPrefab, vec, Quaternion.identity);
+                nextEnemySpawn = Time.time + spawnInterval;
+                enemiesSpawned++;
+                print("spawned an enemy " + enemiesSpawned);
                 return;
             }
         }

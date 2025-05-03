@@ -216,7 +216,7 @@ public class PlayerManager : MonoBehaviour
         }
         else secondAttack = false;
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (false && Input.GetKeyDown(KeyCode.G))
         {
             var obj = Instantiate(testFragGrenade, transform.position + firstPersonCamera.GetViewDirection(), Quaternion.LookRotation(firstPersonCamera.GetViewDirection()));
 
