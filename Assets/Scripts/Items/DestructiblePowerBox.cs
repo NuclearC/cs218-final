@@ -8,6 +8,7 @@ public class DestructiblePowerBox : HittableBehavior
     [SerializeField] float smallVfxDuration = 3f; // How long small fire lasts
     [SerializeField] float bigVfxDuration = 10f;  // How long big explosion fire lasts
     [SerializeField] int hitsToDestroy = 3;        // How many hits needed
+    [SerializeField] Room3DoorController room3DoorController; 
 
     private int currentHits = 0;
     private bool isDestroyed = false;
@@ -51,20 +52,24 @@ public class DestructiblePowerBox : HittableBehavior
     {
         isDestroyed = true;
 
-        // Change material to destroyed version
         if (destroyedMaterial && boxRenderer)
         {
             boxRenderer.material = destroyedMaterial;
         }
 
-        // Spawn big explosion/fire effect at center
         if (bigExplosionEffectPrefab)
         {
-            Vector3 boxCenter = transform.position + Vector3.up * 1f; // Adjust height if needed
+            Vector3 boxCenter = transform.position + Vector3.up * 1f;
             GameObject bigVfx = Instantiate(bigExplosionEffectPrefab, boxCenter, Quaternion.identity);
             Destroy(bigVfx, bigVfxDuration);
         }
 
         Debug.Log("[PowerBox] DESTROYED!");
+
+        // 🔔 Notify the controller
+        if (room3DoorController != null)
+        {
+            room3DoorController.ReportPowerBoxDestroyed();
+        }
     }
 }

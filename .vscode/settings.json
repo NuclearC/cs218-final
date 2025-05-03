@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PhantomProtocol.sln"
+    "dotnet.defaultSolution": "cs218-final.sln"
 }
