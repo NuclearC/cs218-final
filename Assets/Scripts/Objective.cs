@@ -31,6 +31,8 @@ public class Objective : MonoBehaviour
             {
                 ui.ShowBottomPanel("<color=\"green\">Objective is completed!");
                 isCompleted = true;
+
+                EventManager.Instance.OnObjectiveCompleted.Invoke();
             }
             else
             {

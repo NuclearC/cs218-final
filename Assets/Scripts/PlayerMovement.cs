@@ -105,9 +105,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Freeze)
         {
-            if (!rigidBody.isKinematic)
-                rigidBody.isKinematic = true;
-
             return;
         }
 
