@@ -20,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private Transform playerTransform;
     void Start()
     {
+        nextEnemySpawn = spawnInterval;
         var player = GameObject.FindWithTag("Player");
         if (player != null)
         {

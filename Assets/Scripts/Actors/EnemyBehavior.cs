@@ -45,7 +45,7 @@ public class EnemyBehavior : MonoBehaviour
     private BehavioralState currentState;
     private float lastStateSwitch;
 
-    private readonly float stateSwitchDelay = 2.0f;
+    private readonly float stateSwitchDelay = 4.0f;
 
     void Start()
     {
@@ -194,8 +194,7 @@ public class EnemyBehavior : MonoBehaviour
                 goto case BehavioralState.Chase;
             case BehavioralState.Chase:
                 Chase();
-                if (playerDistance >= chaseDistance
-                && patrolWaypoints.Length > 0)
+                if (playerDistance >= chaseDistance)
                     SetState(BehavioralState.Wait);
                 break;
             case BehavioralState.Wait:
