@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Revert : MonoBehaviour
 {
+#if UNITY_EDITOR
     [MenuItem("Test/Property Override")]
     static void TestPO()
     {
@@ -15,4 +16,5 @@ public class Revert : MonoBehaviour
 
         }
     }
+#endif
 }

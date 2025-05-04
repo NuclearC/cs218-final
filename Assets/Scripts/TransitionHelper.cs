@@ -54,7 +54,7 @@ public class TransitionHelper : MonoBehaviour
 
             if (hideObjects.Count() > 0)
             {
-                elapsed -= 3.0f;
+                elapsed -= 4.0f;
                 if (elapsed >= 0 && hideObjects[0].activeSelf)
                 {
                     foreach (var go in hideObjects)

@@ -95,6 +95,7 @@ public class PlayerManager : MonoBehaviour
         SetCurrentItem(inventory.GetItem<Melee>());
         if (loadState)
             LoadState();
+        else ResetState();
     }
 
     public void LoadState()
