@@ -56199,7 +56199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951c254d950fb79f3a0c6c0f557601c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 2
+  sceneIndex: 3
 --- !u!64 &970278139
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -126112,6 +126112,10 @@ PrefabInstance:
     - target: {fileID: 3212528635013701378, guid: 8ff485ba4e61bf7ca95b0d31ab537ca5, type: 3}
       propertyPath: m_Name
       value: CanvasTransition
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460118751167692550, guid: 8ff485ba4e61bf7ca95b0d31ab537ca5, type: 3}
+      propertyPath: hideObjects.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5460118751167692550, guid: 8ff485ba4e61bf7ca95b0d31ab537ca5, type: 3}
       propertyPath: hideObjects.Array.data[0]

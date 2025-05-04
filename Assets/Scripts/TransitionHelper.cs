@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -48,13 +49,30 @@ public class TransitionHelper : MonoBehaviour
         else
         {
             if (fadeImage.gameObject.activeSelf == false) return;
+
             float elapsed = Time.time - startTime;
-            if (elapsed < 2.0f)
+
+            if (hideObjects.Count() > 0)
             {
-                float alpha = 1 - elapsed / 2.0f;
-                fadeImage.color = new Color(0, 0, 0, alpha);
+                elapsed -= 3.0f;
+                if (elapsed >= 0 && hideObjects[0].activeSelf)
+                {
+                    foreach (var go in hideObjects)
+                    {
+                        go.SetActive(false);
+                    }
+                }
             }
-            else fadeImage.gameObject.SetActive(false);
+
+            if (elapsed >= 0.0f)
+            {
+                if (elapsed < 2.0f)
+                {
+                    float alpha = 1 - elapsed / 2.0f;
+                    fadeImage.color = new Color(0, 0, 0, alpha);
+                }
+                else fadeImage.gameObject.SetActive(false);
+            }
         }
     }
 

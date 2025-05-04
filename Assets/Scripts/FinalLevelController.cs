@@ -34,6 +34,7 @@ public class FinalLevelController : MonoBehaviour
         if (Time.time - timeCompleted > 12.0f)
         {
             print("Game finished");
+            SceneManager.LoadScene(0);
         }
         else if (Time.time - timeCompleted > 8.0f)
         {
