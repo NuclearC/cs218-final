@@ -75,8 +75,6 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        if (loadState)
-            LoadState();
         health = GetComponent<HealthManager>();
         health.OnHealthChange.AddListener(OnHealthChange);
 
@@ -95,8 +93,8 @@ public class PlayerManager : MonoBehaviour
         EquipItem(wtf);
 
         SetCurrentItem(inventory.GetItem<Melee>());
-
-        LoadState();
+        if (loadState)
+            LoadState();
     }
 
     public void LoadState()

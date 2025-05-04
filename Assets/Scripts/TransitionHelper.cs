@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TransitionHelper : MonoBehaviour
 {
     [SerializeField] Image fadeImage;
     [SerializeField] GameObject[] hideObjects;
+
+    [SerializeField] AudioSource transitionSound;
     float startTime = 0;
+
+    int transitionTo = -1;
     void Start()
     {
         startTime = Time.time;
@@ -16,13 +21,45 @@ public class TransitionHelper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fadeImage.gameObject.activeSelf == false) return;
-        float elapsed = Time.time - startTime;
-        if (elapsed < 2.0f)
+        if (transitionTo >= 0)
         {
-            float alpha = 1 - elapsed / 2.0f;
-            fadeImage.color = new Color(0, 0, 0, alpha);
+            if (fadeImage.gameObject.activeSelf == false)
+            {
+                startTime = Time.time;
+                fadeImage.gameObject.SetActive(true);
+                fadeImage.color = new Color(0, 0, 0, 0);
+
+                transitionSound.Play();
+            }
+            else
+            {
+                float elapsed = Time.time - startTime;
+                if (elapsed < 2.0f)
+                {
+                    float alpha = elapsed / 2.0f;
+                    fadeImage.color = new Color(0, 0, 0, alpha);
+                }
+                else
+                {
+                    SceneManager.LoadScene(transitionTo);
+                }
+            }
         }
-        else fadeImage.gameObject.SetActive(false);
+        else
+        {
+            if (fadeImage.gameObject.activeSelf == false) return;
+            float elapsed = Time.time - startTime;
+            if (elapsed < 2.0f)
+            {
+                float alpha = 1 - elapsed / 2.0f;
+                fadeImage.color = new Color(0, 0, 0, alpha);
+            }
+            else fadeImage.gameObject.SetActive(false);
+        }
+    }
+
+    public void TransitionTo(int scene)
+    {
+        transitionTo = scene;
     }
 }
