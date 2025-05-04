@@ -23,6 +23,6 @@ public class Room3MusicTrigger : MonoBehaviour
         if (!other.CompareTag("Player") || musicController == null)
             return;
 
-        musicController.PlayMainMusic();
+        // musicController.PlayMainMusic();
     }
 }

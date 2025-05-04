@@ -14,7 +14,10 @@ public class HealthManager : MonoBehaviour
     {
         OnHealthChange = new UnityEvent<int, int>();
     }
-
+    public void SetHealth(int h)
+    {
+        health = h;
+    }
     public void AddHealth(int d)
     {
         health = Math.Clamp(health + d, 0, 100);

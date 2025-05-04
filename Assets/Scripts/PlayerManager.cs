@@ -29,6 +29,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool isDead = false;
 
+    [SerializeField] bool loadState = false;
+
     public bool IsDead { get { return isDead; } }
 
     private float heartBeatPlayTime = 0.0f;
@@ -73,6 +75,8 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
+        if (loadState)
+            LoadState();
         health = GetComponent<HealthManager>();
         health.OnHealthChange.AddListener(OnHealthChange);
 
@@ -91,10 +95,40 @@ public class PlayerManager : MonoBehaviour
         EquipItem(wtf);
 
         SetCurrentItem(inventory.GetItem<Melee>());
+
+        LoadState();
+    }
+
+    public void LoadState()
+    {
+        if (PlayerPrefs.HasKey("PlayerHealth"))
+        {
+            health.SetHealth(PlayerPrefs.GetInt("PlayerHealth"));
+        }
+        if (PlayerPrefs.HasKey("PlayerAmmo"))
+        {
+            var rifle = inventory.GetItem<Rifle>() as Rifle;
+            rifle.TotalAmmo = PlayerPrefs.GetInt("PlayerAmmo");
+            rifle.Reload();
+        }
+    }
+
+    public void SaveState()
+    {
+        var rifle = inventory.GetItem<Rifle>() as Rifle;
+        PlayerPrefs.SetInt("PlayerHealth", health.Value);
+        PlayerPrefs.SetInt("PlayerAmmo", rifle.CurrentAmmo + rifle.TotalAmmo);
+    }
+
+    public void ResetState()
+    {
+        PlayerPrefs.DeleteKey("PlayerHealth");
+        PlayerPrefs.DeleteKey("PlayerAmmo");
     }
 
     public void OnDie()
     {
+        ResetState();
         GameManager.Instance.CursorUnlock();
         movement.Freeze = true;
         var ui = UIManager.Instance;

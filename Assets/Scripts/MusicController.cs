@@ -16,17 +16,8 @@ public class MusicController : MonoBehaviour
         if (audioSource.clip != newMusic)
         {
             audioSource.Stop();
+            audioSource.pitch = 1.0f;
             audioSource.clip = newMusic;
-            audioSource.Play();
-        }
-    }
-
-    public void PlayMainMusic()
-    {
-        if (audioSource.clip != mainMusic)
-        {
-            audioSource.Stop();
-            audioSource.clip = mainMusic;
             audioSource.Play();
         }
     }
