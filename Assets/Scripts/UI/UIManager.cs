@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] TMP_Text debugText;
+    [SerializeField] TMP_Text objectiveText;
 
     [SerializeField] PanelBehavior topPanel;
     [SerializeField] PanelBehavior bottomPanel;
@@ -117,6 +118,10 @@ public class UIManager : MonoBehaviour
     public void HideFloatingPanel()
     {
         floatingPanel.Hide();
+    }
+    public void SetObjective(string text)
+    {
+        objectiveText.text = text;
     }
     public void ShowFloatingPanel(string text, Vector2 position)
     {

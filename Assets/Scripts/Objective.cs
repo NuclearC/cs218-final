@@ -19,10 +19,11 @@ public class Objective : MonoBehaviour
             enemiesToKill = tmp;
         var ui = UIManager.Instance;
 
+        string objectiveText = "";
         if (text != "")
-            ui.ShowBottomPanel("<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies and \n <color=\"red\">" + text);
+            ui.ShowBottomPanel(objectiveText = "<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies and \n <color=\"red\">" + text);
         else
-            ui.ShowBottomPanel("<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies");
+            ui.ShowBottomPanel(objectiveText = "<color=\"yellow\">Objective: kill " + enemiesToKill + " enemies");
         EventManager.Instance.OnEnemyDie.AddListener(() =>
         {
             enemiesKilled++;
@@ -36,11 +37,11 @@ public class Objective : MonoBehaviour
             }
             else
             {
-
                 ui.ShowBottomPanel("<color=\"yellow\">You have killed an enemy!\n" + (enemiesToKill - enemiesKilled) + " more to go!");
-
             }
         });
+
+        ui.SetObjective(objectiveText);
     }
 
     private static Objective singleton = null;
