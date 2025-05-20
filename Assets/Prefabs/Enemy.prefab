@@ -397,7 +397,7 @@ MonoBehaviour:
   damage: 19
   hitInterval: 0.5
   chaseDistance: 8
-  chaseSpeed: 4
+  chaseSpeed: 3
   patrolSpeed: 1.8
   footsteps:
   - {fileID: 8300000, guid: 11d91fc0c7a1c1323b580cc3ac0445e7, type: 3}
