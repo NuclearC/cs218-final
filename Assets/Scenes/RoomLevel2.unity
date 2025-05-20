@@ -972,6 +972,10 @@ PrefabInstance:
       propertyPath: enemiesToKill
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1443815964345344053, guid: 24d3b5d2215c023d79a2458e10f71d42, type: 3}
+      propertyPath: showEnemiesLeft
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8478023344707645700, guid: 24d3b5d2215c023d79a2458e10f71d42, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3228,7 +3232,7 @@ MonoBehaviour:
   spawnInterval: 30
   spawnRadius: 20
   itemPrefab: {fileID: 7474214891846389, guid: cb07684029997d5fd993d0abec86f4cd, type: 3}
-  initialVelocity: 10
+  initialVelocity: 12
 --- !u!4 &1222366495
 Transform:
   m_ObjectHideFlags: 0

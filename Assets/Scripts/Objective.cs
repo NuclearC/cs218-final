@@ -11,6 +11,8 @@ public class Objective : MonoBehaviour
 
     [SerializeField] string text = "";
 
+    [SerializeField] bool showEnemiesLeft = true;
+
     bool isCompleted = false;
     void Start()
     {
@@ -37,7 +39,7 @@ public class Objective : MonoBehaviour
             }
             else
             {
-                ui.ShowBottomPanel("<color=\"yellow\">You have killed an enemy!\n" + (enemiesToKill - enemiesKilled) + " more to go!");
+                ui.ShowBottomPanel("<color=\"yellow\">You have killed an enemy!\n" + (showEnemiesLeft ? (enemiesToKill - enemiesKilled) + " more to go!" : ""));
             }
         });
 

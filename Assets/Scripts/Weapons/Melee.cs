@@ -44,7 +44,7 @@ public class Melee : Weapon
     {
         Ray ray = new Ray(origin, direction);
 
-        var hits = Physics.RaycastAll(ray, GetRange());
+        var hits = Physics.SphereCastAll(ray, 0.5f, GetRange());
         // sort by distance
         Array.Sort(hits, (left, right) => { return left.distance.CompareTo(right.distance); });
 

@@ -121411,6 +121411,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1443815964345344053, guid: 24d3b5d2215c023d79a2458e10f71d42, type: 3}
+      propertyPath: showEnemiesLeft
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2819725301942139980, guid: 24d3b5d2215c023d79a2458e10f71d42, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

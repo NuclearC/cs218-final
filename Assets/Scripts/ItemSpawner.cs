@@ -50,7 +50,9 @@ public class ItemSpawner : MonoBehaviour
 
                 if (initialVelocity > 0.0f && o.TryGetComponent<Rigidbody>(out var rb))
                 {
-                    rb.AddForce((playerTransform.position - o.transform.position).normalized * initialVelocity + Vector3.up * (initialVelocity / 1.2f), ForceMode.VelocityChange);
+                    var target = playerTransform.position + PlayerManager.GetLocalPlayerManager().Movement.Velocity * 2.0f;
+                    Debug.DrawRay(target, Vector3.up, Color.red, 3.0f);
+                    rb.AddForce((target - o.transform.position).normalized * initialVelocity + Vector3.up * (initialVelocity * 0.3f), ForceMode.VelocityChange);
                 }
                 return;
             }

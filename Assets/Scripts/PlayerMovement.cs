@@ -24,10 +24,13 @@ public class PlayerMovement : MonoBehaviour
     private float nextFootstepPlayTime = 0.0f;
     private Vector3 startPos = Vector3.zero;
 
+    public Vector3 Velocity { get; private set; }
+
     public bool Freeze { get; set; }
 
     void Start()
     {
+        Velocity = Vector3.zero;
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.collisionDetectionMode = CollisionDetectionMode.Continuous; // <– ADD THIS
         playerCollider = GetComponent<CapsuleCollider>();
@@ -110,7 +113,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded)
         {
-            var speed = (rigidBody.position - startPos).magnitude / Time.deltaTime;
+            Velocity = (rigidBody.position - startPos) / Time.deltaTime;
+            var speed = Velocity.magnitude;
 
             if (speed > 1.0f && Time.time >= nextFootstepPlayTime)
             {
