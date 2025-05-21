@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image arrow;
     [SerializeField] float arrowRadius;
 
+    [SerializeField] InventoryUIController inventoryUIController;
+
     private float arrowCurrentAngle;
 
     private RectTransform floatingPanelPosition;
@@ -141,6 +143,11 @@ public class UIManager : MonoBehaviour
         var interp = vec2 + (vec1 - vec2) * val;
 
         return Color.HSVToRGB(interp.x, interp.y, interp.z);
+    }
+
+    public void UpdateInventory(int index)
+    {
+        inventoryUIController.SetCurrentItem(index);
     }
     public void UpdateInfoText(int health, int ammo, int magazineCap, int ammoTotal, string currentWeapon, string[] inventory)
     {

@@ -25,6 +25,11 @@ public class RifleBehavior : WeaponBehavior
             float elapsed = Time.time - nextAttackTime;
             factor = (1.0f - MathF.Min(1.0f, elapsed)) / 2.0f;
         }
+        else
+        {
+            float elapsed = Time.time - nextAttackTime;
+            factor = (1.0f - MathF.Min(1.0f, elapsed)) + 0.2f;
+        }
         return new Vector2(x, y) * factor;
     }
     public void Reload(Rifle rifle)
@@ -52,7 +57,10 @@ public class RifleBehavior : WeaponBehavior
 
             Rifle rifle = weapon as Rifle;
             if (rifle.CurrentAmmo <= 0)
+            {
+                Reload(rifle);
                 return;
+            }
 
             soundManager.OnRifleFire(attackOrigin + viewDirection);
             soundManager.PlayShellDropSound(attackOrigin + Vector3.down);

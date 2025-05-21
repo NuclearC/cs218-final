@@ -328,6 +328,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UIManager.Instance.UpdateInventory(currentItem.GetInventoryHudIndex());
+
         UIManager.Instance.UpdateInfoText(health.Value, currentItem is Rifle ? ((Rifle)currentItem).CurrentAmmo : 0,
             currentItem is Rifle ? ((Rifle)currentItem).GetMagazineCapacity() : 1,
             currentItem is Rifle ? ((Rifle)currentItem).TotalAmmo : 1,
