@@ -30,10 +30,16 @@ public class FinalLevelController : MonoBehaviour
     {
         if (!startCount)
             return;
-        if (Time.time - timeCompleted > 12.0f)
+        if (Time.time - timeCompleted > 15.0f)
         {
             print("Game finished");
             GameManager.Instance.BackToMenu();
+        }
+        else if (Time.time - timeCompleted > 12.0f)
+        {
+            float elapsed = Time.time - timeCompleted - 12.0f;
+            float val = 1.0f - elapsed / 4.0f;
+            fadeOutImage.color = new Color(val, val, val, 1.0f);
         }
         else if (Time.time - timeCompleted > 8.0f)
         {

@@ -38,10 +38,12 @@ public class GameManager : MonoBehaviour
     public void GameEnd()
     {
         // TODO: implement
+        CursorUnlock();
     }
 
     public void BackToMenu()
     {
+        GameEnd();
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }

@@ -10,9 +10,12 @@ public class Hints : MonoBehaviour
 
     [SerializeField] string[] timedHints;
     [SerializeField] float[] timedHintTimes;
+    [SerializeField] string[] timedHazards;
+    [SerializeField] float[] timedHazardTimes;
 
     bool[] passedHints;
     bool[] passedTimedHints;
+    bool[] passedTimedHazards;
     bool[] passedHazards;
     private float startTime = 0;
 
@@ -22,6 +25,7 @@ public class Hints : MonoBehaviour
         passedHints = new bool[hintStrings.Length];
         passedHazards = new bool[hazardStrings.Length];
         passedTimedHints = new bool[timedHintTimes.Length];
+        passedTimedHazards = new bool[timedHazardTimes.Length];
     }
 
     void Start()
@@ -31,7 +35,7 @@ public class Hints : MonoBehaviour
     void Update()
     {
 
-        if (timedHintTimes.Length == timedHints.Length)
+        if (timedHintTimes.Length == timedHints.Length && timedHazards.Length == timedHazardTimes.Length)
         {
             for (int i = 0; i < timedHintTimes.Length; i++)
             {
@@ -39,6 +43,11 @@ public class Hints : MonoBehaviour
                 {
                     passedTimedHints[i] = true;
                     UIManager.Instance.ShowTopPanel(timedHints[i]);
+                }
+                if (timedHazardTimes[i] <= (Time.time - startTime) && passedTimedHazards[i] == false)
+                {
+                    passedTimedHazards[i] = true;
+                    UIManager.Instance.ShowBottomPanel(timedHazards[i]);
                 }
             }
         }

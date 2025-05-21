@@ -4584,10 +4584,12 @@ MonoBehaviour:
   hazardStrings: []
   timedHints:
   - There are ammo scattered around the map
-  - Beware of grenades flying at you!
   timedHintTimes:
   - 4
-  - 23
+  timedHazards:
+  - <color=yellow>Beware of grenades!
+  timedHazardTimes:
+  - 22
 --- !u!4 &1565634650
 Transform:
   m_ObjectHideFlags: 0
