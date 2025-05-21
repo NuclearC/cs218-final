@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: 4993016372591987017, guid: b270c251aaa18ec24b791ad16d266593, type: 3}
   explosionSound: {fileID: 8300000, guid: e777174c729b3a1ee85d2d9cd5f8f8a6, type: 3}
   debrisSound: {fileID: 8300000, guid: 4aa55868ad51892268ba7e463cdd00ee, type: 3}
-  impactSound: {fileID: 8300000, guid: a8d487a607a9d53a8b1917544fddb3fa, type: 3}
+  impactSound: {fileID: 8300000, guid: f2fe776c0bb7cfd4c9f3d8490bd63c01, type: 3}
   range: 10
   baseDamage: 95
 --- !u!1001 &9220910670920681958

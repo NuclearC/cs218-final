@@ -63,8 +63,8 @@ public class FragGrenadeBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.contactCount > 0 && collision.contacts[0].impulse.magnitude > 2)
-            AudioSource.PlayClipAtPoint(impactSound, collision.contacts[0].point, 0.2f);
+        if (collision.contactCount > 0 && collision.contacts[0].impulse.magnitude > 0.5f)
+            AudioSource.PlayClipAtPoint(impactSound, collision.contacts[0].point, 1.0f);
     }
 
     void Update()
