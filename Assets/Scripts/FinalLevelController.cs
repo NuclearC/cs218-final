@@ -38,7 +38,7 @@ public class FinalLevelController : MonoBehaviour
         else if (Time.time - timeCompleted > 12.0f)
         {
             float elapsed = Time.time - timeCompleted - 12.0f;
-            float val = 1.0f - elapsed / 4.0f;
+            float val = 1.0f - elapsed / 3.0f;
             fadeOutImage.color = new Color(val, val, val, 1.0f);
         }
         else if (Time.time - timeCompleted > 8.0f)
