@@ -13,6 +13,7 @@ public class ValueSlider : MonoBehaviour
     {
         volumeController = GetComponent<AudioVolumeController>();
         slider.value = volumeController.GetVolume();
+        valueText.text = slider.value.ToString();
 
         slider.onValueChanged.AddListener(OnSliderValueChanged);
     }
